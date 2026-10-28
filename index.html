@@ -78,22 +78,15 @@ textarea::placeholder,input::placeholder{color:var(--muted);opacity:1}
 .sub{display:grid;gap:8px;margin-bottom:18px}
 .sub:last-child{margin-bottom:0}
 .sub b{font-size:14px;font-weight:500}
-.slot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.slot label{cursor:pointer}
-.slot input{position:absolute;opacity:0;width:0;height:0}
-.slot span{display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;max-width:100%;border:1.5px dashed var(--line);border-radius:10px;background:var(--card);font-weight:700;font-size:18px;color:var(--muted);text-align:center;padding:6px}
-.slot span small{display:block;font-size:11px;font-weight:400}
-.slot input:checked+span{border:2px solid var(--accent);color:var(--accent)}
-.slot input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
-.slotnote{font-size:12.5px;color:var(--muted);margin-top:8px}
-/* 8번 매장 사진: 보기마다 사진 여러 장을 가로로 넘겨 보고, 아래 버튼으로 고른다 */
+/* 7번 매장 사진: 보기마다 사진 여러 장을 가로로 넘겨 보고, 아래 호·불호를 누른다 */
 .photos{display:grid;gap:22px}
-.pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px;transition:border-color .12s}
-.pcard.on{border:2px solid var(--accent);padding:9px}
+.pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px}
+.ptitle{font-weight:700;font-size:15px;margin:0 2px 8px}
 .strip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;border-radius:8px}
 .strip img{flex:0 0 88%;width:88%;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:start;border-radius:8px;display:block}
 .strip img:only-child{flex-basis:100%;width:100%}
 .phint{font-size:12.5px;color:var(--muted);margin:6px 2px 8px}
+.likes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .pcard label{cursor:pointer;display:block}
 .pcard input{position:absolute;opacity:0;width:0;height:0}
 .pcard label span{display:flex;align-items:center;justify-content:center;min-height:46px;border:1px solid var(--line);border-radius:10px;font-weight:700;font-size:15px}
@@ -101,10 +94,9 @@ textarea::placeholder,input::placeholder{color:var(--muted);opacity:1}
 .pcard input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
 .consent{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-size:14px;cursor:pointer}
 .consent input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none}
-.reveal{margin-top:30px;padding-block:28px;border-top:1px solid var(--line);display:grid;gap:8px;justify-items:start}
-.reveal .kicker{font-size:14px;color:var(--muted)}
-.reveal .wordmark{font-family:var(--display);font-size:clamp(38px,11vw,52px);line-height:1.1;letter-spacing:.01em;font-weight:400}
-.reveal .wordmark-en{font-size:14px;letter-spacing:.14em;color:var(--muted);font-weight:500}
+.brand{display:grid;justify-items:center;gap:4px;padding-top:22px}
+.brand .logo{display:block;width:min(64%,240px);height:auto}
+.brand .wordmark-en{font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:500}
 .nav{display:grid;gap:10px;padding-top:28px}
 button.go{width:100%;font-family:var(--body);font-weight:700;font-size:17px;color:var(--accent-ink);background:var(--accent);border:0;border-radius:12px;padding:16px;cursor:pointer}
 button.go:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
@@ -125,18 +117,22 @@ button.back{background:none;border:0;color:var(--muted);font:inherit;font-size:1
 <div class="progress"><i id="bar"></i></div>
 
 <div class="wrap">
+<header class="brand">
+  <img class="logo" src="img/logo_main.png" alt="원조할매케밥 · The Original Grandma's Kebab" width="900" height="953">
+  <span class="wordmark-en">WONJO HALMAE KEBAB</span>
+</header>
 <form id="survey" novalidate>
   <div class="hp" aria-hidden="true"><input type="text" id="hp" name="hp" tabindex="-1" autocomplete="off"></div>
 
-  <!-- 1단계: 가게 이름을 아직 보여 주지 않는다 (3번 「이름 기억나세요?」 때문) -->
+  <!-- 1단계 (10-29 사장님: 맨 위에 원조할매케밥 로고를 박아 처음부터 원조할매케밥 설문임을 보여 준다) -->
   <div id="step1">
     <div class="intro">
       <h1>시식해 주셔서 감사합니다!<span class="en">Thank you for tasting our food!</span></h1>
-      <p>3분 정도 걸려요. 답하고 싶은 것만 답해 주셔도 됩니다.<span class="en">It takes about 3 minutes. Answer only what you'd like.</span></p>
+      <p>3분 정도 걸립니다. 답하고 싶은 것만 답해 주셔도 됩니다.<span class="en">It takes about 3 minutes. Answer only what you'd like.</span></p>
       <p>모든 답은 익명으로 저장됩니다.<span class="en">All answers are saved anonymously.</span></p>
           </div>
 
-    <!-- 10-18 사장님 「손님정보 먼저」 → 손님 정보를 1번으로, 케밥 경험·이름 기억은 2~4번 -->
+    <!-- 10-18 사장님 「손님정보 먼저」 → 손님 정보를 1번으로, 케밥 경험은 2~3번 · 10-29 이름 기억 문항은 맨 위 로고 때문에 뺌 -->
     <div class="group" style="margin-top:14px">
       <h2>손님 정보 · ABOUT YOU</h2>
       <div class="q"><span class="n">1</span><div class="body">
@@ -154,16 +150,8 @@ button.back{background:none;border:0;color:var(--muted);font:inherit;font-size:1
         <div class="choices" id="kebab_before"></div>
       </div></div>
       <div class="q" id="q2" hidden><span class="n">3</span><div class="body">
-        <div class="qt">마지막으로 케밥을 드신 게 언제예요?<span class="en">When did you last have a kebab?</span></div>
+        <div class="qt">마지막으로 케밥을 드신 게 언제인가요?<span class="en">When did you last have a kebab?</span></div>
         <div class="choices" id="kebab_last"></div>
-      </div></div>
-    </div>
-
-    <div class="group">
-      <h2>이름 기억 · NAME</h2>
-      <div class="q"><span class="n">4</span><div class="body">
-        <label class="qt" for="name_recall">방금 드신 가게 이름이 기억나세요?<span class="en">Do you remember the name of the shop you just tried?</span></label>
-        <input type="text" id="name_recall" name="name_recall" placeholder="기억나는 대로 적어 주세요 · Write what you remember">
       </div></div>
     </div>
 
@@ -172,74 +160,63 @@ button.back{background:none;border:0;color:var(--muted);font:inherit;font-size:1
     </div>
   </div>
 
-  <!-- 2단계: 여기서 처음으로 가게 이름을 보여 준다 -->
+  <!-- 2단계 -->
   <div id="step2" hidden>
-    <div class="reveal">
-      <span class="kicker">방금 드신 가게는 · The shop you just tried is</span>
-      <span class="wordmark">원조할매케밥</span>
-      <span class="wordmark-en">WONJO HALMAE KEBAB</span>
-    </div>
-
     <div class="group" style="margin-top:0">
       <h2>첫인상 · FIRST IMPRESSION</h2>
-      <div class="q"><span class="n">5</span><div class="body">
-        <div class="qt">로고와 이름만 보고 무슨 가게 같았어요?<span class="en">Looking only at the logo and name, what kind of shop did it seem like?</span></div>
+      <div class="q"><span class="n">4</span><div class="body">
+        <div class="qt">로고와 이름만 보고 어떤 가게 같으셨어요?<span class="en">Looking only at the logo and name, what kind of shop did it seem like?</span></div>
         <div class="choices" id="first_guess"></div>
       </div></div>
-      <div class="q"><span class="n">6</span><div class="body">
+      <div class="q"><span class="n">5</span><div class="body">
         <div class="qt">「원조할매케밥」이라는 이름만 보면 먹으러 오시겠어요?<span class="en">Based on the name "Wonjo Halmae Kebab" alone, would you come to eat?</span></div>
         <div class="choices" id="name_come"></div>
       </div></div>
-      <div class="q"><span class="n">7</span><div class="body">
-        <div class="qt">어느 로고가 가장 마음에 드세요?<span class="en">Which logo do you like best?</span></div>
-        <div class="slot" id="logo_pick"></div>
-        <p class="slotnote" data-slotnote>로고 시안 자리 — 시안이 정해지면 이 칸에 들어갑니다.</p>
-      </div></div>
-      <div class="q"><span class="n">8</span><div class="body">
-        <div class="qt">원조할매케밥 하면 떠오르는 매장 내부 모습은 어떤가요?<span class="en">When you think of Wonjo Halmae Kebab, which store interior comes to mind?</span></div>
+      <div class="q"><span class="n">6</span><div class="body">
+        <div class="qt">매장 내부 모습, 호 · 불호를 골라 주세요<span class="en">Do you like or dislike each store interior?</span></div>
         <div class="photos" id="store_pick"></div>
       </div></div>
     </div>
 
     <div class="group">
       <h2>맛 · TASTE</h2>
-      <div class="q"><span class="n">9</span><div class="body">
+      <div class="q"><span class="n">7</span><div class="body">
         <div class="qt">메뉴마다 맛은 어떠셨어요?<span class="en">How did each menu taste?</span></div>
         <div id="tasteRows"></div>
       </div></div>
-      <div class="q"><span class="n">10</span><div class="body">
-        <div class="qt">내 돈 주고 또 사 드실 메뉴는?<span class="en">Which menu would you buy again with your own money?</span></div>
+      <div class="q"><span class="n">8</span><div class="body">
+        <div class="qt">돈 내고 또 사 드시고 싶은 메뉴가 있으세요?<span class="en">Which menu would you buy again with your own money?</span></div>
         <div class="choices" id="again"></div>
       </div></div>
-      <div class="q"><span class="n">11</span><div class="body">
-        <div class="qt">이건 다시 안 사 드실 것 같다, 하는 메뉴는? <span class="opt">(답하지 않아도 됨)</span><span class="en">Any menu you probably wouldn't buy again? (optional)</span></div>
+      <div class="q"><span class="n">9</span><div class="body">
+        <div class="qt">다시는 안 사 드실 것 같은 메뉴가 있으세요? <span class="opt">(답하지 않아도 됨)</span><span class="en">Any menu you probably wouldn't buy again? (optional)</span></div>
         <div class="choices" id="never"></div>
       </div></div>
     </div>
 
     <div class="group">
       <h2>모양 · LOOK</h2>
-      <div class="q"><span class="n">12</span><div class="body">
+      <div class="q"><span class="n">10</span><div class="body">
         <div class="qt">음식이 사진 찍기 좋은가요?<span class="en">Does the food look good in photos?</span></div>
         <div class="sw"><div class="scale" id="photo"></div><div class="scalekey"><span>별로다<br>Not really</span><span>좋다<br>Great</span></div></div>
       </div></div>
-      <div class="q"><span class="n">13</span><div class="body">
-        <label class="qt" for="fix_look">바꿨으면 하는 점 <span class="opt">(답하지 않아도 됨)</span><span class="en">Anything you'd change about how it looks? (optional)</span></label>
+      <div class="q"><span class="n">11</span><div class="body">
+        <label class="qt" for="fix_look">모양에서 바꿨으면 하는 점이 있으세요? <span class="opt">(답하지 않아도 됨)</span><span class="en">Anything you'd change about how it looks? (optional)</span></label>
         <textarea id="fix_look" name="fix_look" placeholder="어떤 말씀이든 좋습니다 · Any comment is welcome"></textarea>
       </div></div>
     </div>
 
     <div class="group">
       <h2>가격 · PRICE</h2>
-      <div class="q"><span class="n">14</span><div class="body">
+      <div class="q"><span class="n">12</span><div class="body">
         <div class="qt">이 가격이면 사 드시겠어요?<span class="en">Would you buy it at this price?</span></div>
         <div id="rebuyRows"></div>
       </div></div>
-      <div class="q"><span class="n">15</span><div class="body">
+      <div class="q"><span class="n">13</span><div class="body">
         <div class="qt">얼마까지 내실 수 있으세요?<span class="en">How much would you pay?</span></div>
         <div id="payRows"></div>
       </div></div>
-      <div class="q"><span class="n">16</span><div class="body">
+      <div class="q"><span class="n">14</span><div class="body">
         <div class="qt">드셔 보니 어떤 음식과 비슷하다고 느끼셨어요?<span class="en">What food did it remind you of?</span></div>
         <div class="choices" id="similar"></div>
       </div></div>
@@ -247,15 +224,15 @@ button.back{background:none;border:0;color:var(--muted);font:inherit;font-size:1
 
     <div class="group">
       <h2>다시 사 드실지 · COMING BACK</h2>
-      <div class="q"><span class="n">17</span><div class="body">
-        <div class="qt">친구한테 추천하실 만한가요?<span class="en">Would you recommend it to a friend?</span></div>
+      <div class="q"><span class="n">15</span><div class="body">
+        <div class="qt">친구분께 추천하시겠어요?<span class="en">Would you recommend it to a friend?</span></div>
         <div class="sw"><div class="scale" id="recommend"></div><div class="scalekey"><span>아니다<br>No</span><span>그렇다<br>Yes</span></div></div>
       </div></div>
-      <div class="q"><span class="n">18</span><div class="body">
+      <div class="q"><span class="n">16</span><div class="body">
         <div class="qt">가게가 가까이 있다면, 6개월에 몇 번 사 드실 것 같으세요?<span class="en">If we were nearby, how many times would you buy in 6 months?</span></div>
         <div class="choices" id="freq"></div>
       </div></div>
-      <div class="q"><span class="n">19</span><div class="body">
+      <div class="q"><span class="n">17</span><div class="body">
         <div class="qt">다시 사 드신다면 언제 드실 것 같으세요?<span class="en">If you bought it again, when would it be?</span></div>
         <div class="choices" id="when"></div>
       </div></div>
@@ -263,32 +240,32 @@ button.back{background:none;border:0;color:var(--muted);font:inherit;font-size:1
 
     <div class="group">
       <h2>고칠 것 · ONE THING</h2>
-      <div class="q"><span class="n">20</span><div class="body">
-        <label class="qt" for="one_change">딱 하나만 바꿀 수 있다면요?<span class="en">If you could change just one thing, what would it be?</span></label>
+      <div class="q"><span class="n">18</span><div class="body">
+        <label class="qt" for="one_change">딱 하나만 바꿀 수 있다면, 무엇을 바꾸고 싶으세요?<span class="en">If you could change just one thing, what would it be?</span></label>
         <textarea id="one_change" name="one_change" placeholder="하나만 꼽아 주세요 · Just one thing"></textarea>
       </div></div>
     </div>
 
     <div class="group">
       <h2>알림 · OPENING NEWS</h2>
-      <div class="q"><span class="n">21</span><div class="body">
-        <label class="qt" for="notify_contact">마곡에 문 열면 알려드릴까요?<span class="en">Shall we let you know when we open in Magok?</span></label>
+      <div class="q"><span class="n">19</span><div class="body">
+        <label class="qt" for="notify_contact">마곡에 가게를 열면 알려 드릴까요?<span class="en">Shall we let you know when we open in Magok?</span></label>
         <input type="tel" id="notify_contact" name="notify_contact" inputmode="tel" autocomplete="tel" placeholder="휴대폰 번호 · Phone number">
-        <label class="consent" for="notify_consent"><input type="checkbox" id="notify_consent" name="notify_consent" value="동의"><span>연락처는 출시 알림에만 쓰고, 알림 뒤 지웁니다. 동의합니다.<span class="en">We'll use your number only for the opening notice and delete it afterwards. I agree.</span></span></label>
+        <label class="consent" for="notify_consent"><input type="checkbox" id="notify_consent" name="notify_consent" value="동의"><span>연락처는 개점 알림에만 쓰고, 알림을 보낸 뒤 바로 지웁니다. 이에 동의합니다.<span class="en">We'll use your number only for the opening notice and delete it afterwards. I agree.</span></span></label>
       </div></div>
     </div>
 
     <div class="nav">
       <button type="submit" class="go">보내기 · Send</button>
-      <p class="note">빈 칸이 있어도 보내집니다.<br>You can send with blanks.</p>
+      <p class="note">빈칸이 있어도 보내실 수 있습니다.<br>You can send with blanks.</p>
       <p class="err" id="err" hidden></p>
-      <button type="button" class="back" id="toStep1">앞으로 돌아가기 · Back</button>
+      <button type="button" class="back" id="toStep1">이전으로 돌아가기 · Back</button>
     </div>
   </div>
 </form>
 
 <div class="thanks" id="thanks" hidden>
-  <h2>귀한 시간 내주셔서 진심으로 감사합니다.<span class="en">Thank you so much for your time.</span></h2>
+  <h2>귀한 시간 내 주셔서 진심으로 감사합니다.<span class="en">Thank you so much for your time.</span></h2>
   <p>써 주신 말씀은 빠짐없이 챙겨 보겠습니다.<span class="en">We'll read every answer.</span></p>
   <pre class="dump" id="dump" hidden></pre>
 </div>
@@ -310,21 +287,19 @@ var MENUS = [
 /* [화면 글, 영어 한 줄] — 저장값은 한국어 글 그대로 */
 var CHOICES = {
   kebab_before:[["있다","Yes"],["오늘이 처음","Today is my first time"]],
-  kebab_last:[["1달 안","Within a month"],["6달 안","Within 6 months"],["1년 안","Within a year"],["1년 넘음","Over a year ago"]],
+  kebab_last:[["한 달 안","Within a month"],["6달 안","Within 6 months"],["1년 안","Within a year"],["1년 넘음","Over a year ago"]],
   age:[["10대","Teens"],["20대 초","Early 20s"],["20대 후","Late 20s"],["30대","30s"],["40대","40s"],["50대 이상","50s+"]],
-  sex:[["여","Female"],["남","Male"],["안 밝힘","Prefer not to say"]],
+  sex:[["여","Female"],["남","Male"],["밝히지 않음","Prefer not to say"]],
   job:[["대학생","University student"],["대학원생","Graduate student"],["취업준비생","Job seeker"],["직장인","Office worker"],["자영업","Self-employed"],["주부","Homemaker"],["그 밖에","Other"]],
   first_guess:[["케밥집","Kebab shop"],["한식집","Korean restaurant"],["분식집","Korean snack bar"],["떡집","Rice cake shop"],["카페","Café"],["잘 모르겠다","Not sure"]],
   name_come:[["온다","I'd come"],["안 온다","I wouldn't"],["이름은 상관없다","The name doesn't matter"]],
   again:[["워킹타코","Walking Taco"],["케밥","Kebab"],["없다","None"]],
   never:[["워킹타코","Walking Taco"],["케밥","Kebab"],["없다","None"]],
-  similar:[["김밥","Gimbap"],["햄버거","Burger"],["중국음식","Chinese food"],["한식","Korean food"],["백반","Korean home meal"],["샌드위치","Sandwich"],["타코","Taco"],["부리또","Burrito"],["비슷한 게 없다","Nothing similar"]],
+  similar:[["김밥","Gimbap"],["햄버거","Burger"],["중국 음식","Chinese food"],["한식","Korean food"],["백반","Korean home meal"],["샌드위치","Sandwich"],["타코","Taco"],["부리토","Burrito"],["비슷한 게 없다","Nothing similar"]],
   freq:[["0번(안 살 것 같다)","0 (wouldn't buy)"],["1번","1"],["2번","2"],["3번","3"],["4번","4"],["5번","5"],["6번 이상","6+"]],
-  when:[["점심","Lunch"],["저녁","Dinner"],["야식","Late-night snack"],["배달","Delivery"],["단체","Group order"],["선물","Gift"],["다시 안 사 먹음","Wouldn't buy again"]]
+  when:[["점심","Lunch"],["저녁","Dinner"],["야식","Late-night snack"],["배달","Delivery"],["단체","Group order"],["선물","Gift"],["다시 안 사 먹을 것 같다","Wouldn't buy again"]]
 };
-/* 7번 보기 = 별도 세션에서 채움(지금은 A·B·C 자리만)
-   8번 = 사장님 확정 16장(2026-10-18) 낱장 · 맨 앞 사진 = 구글폼 5번 대표 사진 · 번호 = interior_survey_final.csv 분류 안 순서 */
-var SLOTS = {logo_pick:["로고 A","로고 B","로고 C"]};
+/* 7번 = 사장님 확정 16장(2026-10-18) 낱장 · 10-29 사장님 「호 불호라고만」 → 사진 묶음마다 호/불호(저장 칸 store_A~D) · 맨 앞 사진 = 구글폼 5번 대표 사진 · 번호 = interior_survey_final.csv 분류 안 순서 */
 var PHOTOS = {store_pick:[
   ["사진 A","Photo A",[4,1,2,3,5,6].map(function(k){return "img/store_A_"+k+".jpg";})],
   ["사진 B","Photo B",[2,1,3,4].map(function(k){return "img/store_B_"+k+".jpg";})],
@@ -346,20 +321,15 @@ function scaleBlock(name, lo, hi){
 }
 
 Object.keys(CHOICES).forEach(function(n){ var b=document.getElementById(n); if(b) b.innerHTML=pills(n, CHOICES[n]); });
-Object.keys(SLOTS).forEach(function(n){
-  document.getElementById(n).innerHTML = SLOTS[n].map(function(t,i){ var id=n+"_"+i;
-    return '<label for="'+id+'"><input type="radio" id="'+id+'" name="'+n+'" value="'+esc(t)+'"><span>'+esc(t)+'</span></label>'; }).join("");
-});
 Object.keys(PHOTOS).forEach(function(n){
   var box = document.getElementById(n);
-  box.innerHTML = PHOTOS[n].map(function(p,i){ var id=n+"_"+i;
-    return '<div class="pcard"><div class="strip">'
+  box.innerHTML = PHOTOS[n].map(function(p){ var key="store_"+p[0].slice(-1);
+    return '<div class="pcard"><p class="ptitle">'+esc(p[0])+' · '+esc(p[1])+'</p><div class="strip">'
       + p[2].map(function(src,k){ return '<img src="'+src+'" alt="'+esc(p[0])+' '+(k+1)+'" loading="lazy">'; }).join("")
-      + '</div><p class="phint">옆으로 넘겨 보세요 · '+p[2].length+'장 · Swipe to see '+p[2].length+' photos</p>'
-      + '<label for="'+id+'"><input type="radio" id="'+id+'" name="'+n+'" value="'+esc(p[0])+'"><span>'+esc(p[0])+' 고르기 · Choose '+esc(p[1])+'</span></label></div>'; }).join("");
-  box.addEventListener("change", function(){
-    Array.prototype.forEach.call(box.querySelectorAll(".pcard"), function(c){ c.classList.toggle("on", c.querySelector("input").checked); });
-  });
+      + '</div><p class="phint">옆으로 넘겨 보세요 · '+p[2].length+'장 · Swipe to see '+p[2].length+' photos</p><div class="likes">'
+      + [["호","Like"],["불호","Dislike"]].map(function(v,k){ var id=key+"_"+k;
+          return '<label for="'+id+'"><input type="radio" id="'+id+'" name="'+key+'" value="'+v[0]+'"><span>'+v[0]+' · '+v[1]+'</span></label>'; }).join("")
+      + '</div></div>'; }).join("");
 });
 document.getElementById("photo").innerHTML = scale("photo");
 document.getElementById("recommend").innerHTML = scale("recommend");
@@ -421,7 +391,7 @@ form.addEventListener("submit", function(e){
   var data = answers(), err = document.getElementById("err");
   function fail(msg){ err.innerHTML = msg; err.hidden = false; err.scrollIntoView({block:"center"}); }
   if(!Object.keys(data).length) return fail("한 칸이라도 채워 주시면 보낼 수 있어요.<br>Please answer at least one question.");
-  if(data.notify_contact && !data.notify_consent) return fail("알림을 받으시려면 21번 동의에 체크해 주세요.<br>Please tick the consent box in Q21.");
+  if(data.notify_contact && !data.notify_consent) return fail("알림을 받으시려면 19번 동의에 체크해 주세요.<br>Please tick the consent box in Q19.");
   if(!data.notify_contact && data.notify_consent) delete data.notify_consent;
   err.hidden = true;
   data.survey_id = SURVEY_ID;
@@ -435,8 +405,8 @@ form.addEventListener("submit", function(e){
   var btn = form.querySelector('button[type="submit"]'); btn.disabled = true;
   fetch(SUBMIT_ENDPOINT, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(payload)})
     .then(function(r){ return r.json(); })
-    .then(function(res){ if(res && res.ok) done(); else { btn.disabled=false; fail("보내지 못했어요. 잠시 뒤 다시 눌러 주세요.<br>Couldn't send. Please try again shortly."); } },
-          function(){ btn.disabled=false; fail("보내지 못했어요. 잠시 뒤 다시 눌러 주세요.<br>Couldn't send. Please try again shortly."); });
+    .then(function(res){ if(res && res.ok) done(); else { btn.disabled=false; fail("보내지 못했습니다. 잠시 뒤 다시 눌러 주세요.<br>Couldn't send. Please try again shortly."); } },
+          function(){ btn.disabled=false; fail("보내지 못했습니다. 잠시 뒤 다시 눌러 주세요.<br>Couldn't send. Please try again shortly."); });
 });
 </script>
 
