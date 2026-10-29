@@ -1,2 +1,3 @@
 User-agent: *
-Disallow: /
+Disallow: /survey/
+Sitemap: https://wonjohalmaekebab.co.kr/sitemap.xml

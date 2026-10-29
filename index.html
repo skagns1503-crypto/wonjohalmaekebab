@@ -3,411 +3,349 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex">
+<meta name="description" content="중앙아시아에서 오래 먹어 온 케밥을 그대로 옮겨오고, 향신료와 소스만 한국 입맛에 맞게 손본 케밥. 서울 마곡 개점 준비 중.">
+<link rel="canonical" href="https://wonjohalmaekebab.co.kr/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="원조할매케밥 · The Original Grandma's Kebab">
+<meta property="og:description" content="그 짧은 여행을 점심 한 끼에 — 중앙아시아로.">
+<meta property="og:image" content="https://wonjohalmaekebab.co.kr/img/home_spread.jpg">
+<meta property="og:url" content="https://wonjohalmaekebab.co.kr/">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>원조할매케밥 시식 설문</title>
+<title>원조할매케밥 · The Original Grandma's Kebab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Shrikhand&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
 <style>
-/* 한 줄 세로 설문 · 1~4번은 가게 이름을 숨긴 채로 받고(1단계), 이름을 보여 준 뒤 5~21번(2단계)
-   화면은 일부러 업종이 떠오르지 않게 차분하게 — 5번 「무슨 가게 같았어요?」 답을 화면이 끌고 가지 않도록 */
+/* 소개 첫 화면 · 글 정본 = 서사 정본 v1.2 §9-2(2026-08-19 확정) — 문장은 거기서만 고친다
+   ⭐4판 구성(사장님 10-29 「2번 메뉴 + 1번 이야기」, 본보기 캡처 = benchmark_captures/)
+     위 띠·사진 메뉴·빨간 바닥 = Patty & Bun(크림 바탕, 접시째 사진 + 빨간 이름 + 재료 한 줄)
+     이야기 칸 = Mel's Drive-In 역사 페이지(옛날 사진 + 파란 리본 + 큰 숫자)
+   색 기준 = 사장님 그림 A(brand-ci/reference_images/wonjohalmae_mockup_olditaco_A_counter.png) 크림 메뉴판·파랑/빨강 글씨·별·스테인리스
+   ⛔검은·어두운 바탕 금지 · ⛔AI 목업 사진을 사이트에 넣지 말 것(사진은 작가 보정본만) — 색은 전부 아래 토큰에서만 */
 :root{
-  --bg:#F7F7F5; --card:#FFFFFF; --ink:#1E1D1B; --muted:#77736C;
-  --line:#E2E0DB; --accent:#9C3D1E; --accent-ink:#FFFFFF; --accent-soft:#F4E7E1; --none:#6B6760;
+  color-scheme:light;
+  --cream:#FBF1DC; --paper:#FFFBEF; --board:#FFF4DC; --blue:#1F3F8F; --red:#C8302B; --red-deep:#A82720;
+  --ink:#2A1A14; --muted:#6E5A4E; --line:#E9D6B4; --paper-rule:#EDC9BE;
+  --steel:linear-gradient(180deg,#F4F4F2 0%,#B9BCC0 38%,#8E9298 55%,#D9DBDD 100%);
   --display:"Black Han Sans","IBM Plex Sans KR","Malgun Gothic",sans-serif;
+  --script:"Shrikhand","Black Han Sans",cursive;
   --body:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#171614; --card:#201F1C; --ink:#EDEBE6; --muted:#A39E95;
-  --line:#34322E; --accent:#E08A62; --accent-ink:#1A1310; --accent-soft:#3A2820; --none:#8E897F; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#171614; --card:#201F1C; --ink:#EDEBE6; --muted:#A39E95;
-  --line:#34322E; --accent:#E08A62; --accent-ink:#1A1310; --accent-soft:#3A2820; --none:#8E897F; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-text-size-adjust:100%}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.progress{position:sticky;top:env(safe-area-inset-top,0px);height:3px;background:var(--line);z-index:20}
-.progress>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
-.wrap{max-width:600px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
-.en{display:block;font-size:13px;color:var(--muted);font-weight:400;line-height:1.45;margin-top:2px}
-.intro{padding-block:32px 8px;display:grid;gap:10px}
-.intro h1{font-size:clamp(23px,6vw,28px);line-height:1.35;margin:0;font-weight:700;text-wrap:balance}
-.intro h1 .en{font-size:15px;margin-top:6px}
-.intro p{margin:0;color:var(--ink)}
-.preview{margin-top:8px;padding:10px 13px;border:1px dashed var(--accent);border-radius:6px;background:var(--accent-soft);color:var(--ink);font-size:13.5px}
-.group{padding-block:34px 6px;border-top:1px solid var(--line);margin-top:26px}
-.group h2{margin:0 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--accent)}
-.q{display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 10px;padding-block:20px}
-.q .n{font-size:15px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:1px}
-.q .qt{font-size:16px;font-weight:500;line-height:1.5;margin-bottom:14px}
-.q .qt .opt{font-size:13px;color:var(--muted);font-weight:400}
-.q .body{min-width:0}
-.choices{display:flex;flex-wrap:wrap;gap:8px}
-.choices label,.scale label{cursor:pointer}
-.choices input,.scale input{position:absolute;opacity:0;width:0;height:0}
-.choices span{display:inline-flex;flex-direction:column;justify-content:center;min-height:44px;padding:7px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-size:15px;line-height:1.3;transition:background .12s,border-color .12s,color .12s}
-.choices span small{font-size:11.5px;color:var(--muted)}
-.choices input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:500}
-.choices input:checked+span small{color:var(--accent-ink)}
-.choices input:focus-visible+span,.scale input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
-.scale{display:flex;flex-wrap:wrap;gap:6px}
-.scale span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:52px;min-height:60px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-size:17px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.15}
-.scale span i{font-style:normal;font-size:19px;margin-bottom:3px}
-.scale input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
-.scale .none span{font-size:13.5px;font-weight:400;color:var(--muted)}
-.scale .none span small{font-size:11px}
-.scale .none input:checked+span{background:var(--none);border-color:var(--none);color:#fff}
-.sw{display:inline-flex;flex-direction:column;max-width:100%}
-.scalekey{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted);margin-top:7px;line-height:1.35}
-.scalekey span:last-child{text-align:right}
-.mrow{display:grid;gap:10px;padding-block:14px;border-bottom:1px solid var(--line)}
-.mrow:first-child{padding-top:0}
-.mrow:last-child{border-bottom:0;padding-bottom:0}
-.mrow .mname{font-weight:700;font-size:15px}
-.mrow .mname small{font-weight:400;color:var(--muted);font-size:13px;margin-left:6px}
-.tasteline{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
-.price span{min-width:0;font-size:14px;font-weight:500;padding:0 11px}
-.price span small{font-size:10.5px;color:var(--muted);font-weight:400;margin-top:2px}
-.price input:checked+span small{color:var(--accent-ink)}
-textarea,input[type=text],input[type=tel]{width:100%;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 13px;resize:vertical}
-textarea{min-height:92px}
-textarea:focus,input[type=text]:focus,input[type=tel]:focus{outline:2px solid var(--accent);outline-offset:1px}
-textarea::placeholder,input::placeholder{color:var(--muted);opacity:1}
-.sub{display:grid;gap:8px;margin-bottom:18px}
-.sub:last-child{margin-bottom:0}
-.sub b{font-size:14px;font-weight:500}
-/* 7번 매장 사진: 보기마다 사진 여러 장을 가로로 넘겨 보고, 아래 호·불호를 누른다 */
-.photos{display:grid;gap:22px}
-.pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px}
-.ptitle{font-weight:700;font-size:15px;margin:0 2px 8px}
-.strip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;border-radius:8px}
-.strip img{flex:0 0 88%;width:88%;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:start;border-radius:8px;display:block}
-.strip img:only-child{flex-basis:100%;width:100%}
-.phint{font-size:12.5px;color:var(--muted);margin:6px 2px 8px}
-.likes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pcard label{cursor:pointer;display:block}
-.pcard input{position:absolute;opacity:0;width:0;height:0}
-.pcard label span{display:flex;align-items:center;justify-content:center;min-height:46px;border:1px solid var(--line);border-radius:10px;font-weight:700;font-size:15px}
-.pcard input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.pcard input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
-.consent{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-size:14px;cursor:pointer}
-.consent input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none}
-.brand{display:grid;justify-items:center;gap:4px;padding-top:22px}
-.brand .logo{display:block;width:min(64%,240px);height:auto}
-.brand .wordmark-en{font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:500}
-.nav{display:grid;gap:10px;padding-top:28px}
-button.go{width:100%;font-family:var(--body);font-weight:700;font-size:17px;color:var(--accent-ink);background:var(--accent);border:0;border-radius:12px;padding:16px;cursor:pointer}
-button.go:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-button.back{background:none;border:0;color:var(--muted);font:inherit;font-size:14px;cursor:pointer;padding:6px;justify-self:center;text-decoration:underline}
-.note{margin:0;font-size:13px;color:var(--muted);text-align:center}
-.err{margin:0;font-size:14px;color:var(--accent);text-align:center;font-weight:500}
-.thanks{padding-block:60px 40px;text-align:center;display:grid;gap:10px}
-.thanks h2{font-size:24px;margin:0;font-weight:700;text-wrap:balance}
-.thanks p{margin:0}
-.dump{margin-top:22px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;font-size:12px;white-space:pre-wrap;word-break:break-all;max-height:320px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-@media (max-width:400px){.scale span{min-width:46px;padding:0 8px}.q{grid-template-columns:26px minmax(0,1fr);gap:0 8px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--red)}
+.t-en{display:none}
+html.en .t-en{display:revert}
+html.en .t-ko{display:none}
+.wrap{max-width:660px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* 줄 장식 — 스테인리스 카운터 띠 · 빨강·크림 체크 종이 · 별 줄 */
+.steel{height:10px;background:var(--steel)}
+.check{height:20px;background-color:var(--paper);background-image:linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%),linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%);background-size:20px 20px;background-position:0 0,10px 10px}
+.stars{margin:0;text-align:center;color:var(--red);letter-spacing:10px;font-size:15px}
+.stars b{color:var(--blue);font-weight:400}
+
+/* 위 띠 — Patty & Bun 처럼 빨간 띠 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--red)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.bar .name{font-family:var(--display);font-size:19px;color:var(--paper);text-decoration:none}
+.lang{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1 var(--body);letter-spacing:.08em;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer}
+.lang b{color:var(--blue);font-weight:700}
+.lang:focus-visible,.cta:focus-visible,.bar .name:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+/* 카운터 위 레트로 메뉴판(그림 A) — 스테인리스 테 · 크림 판 · 빨간 안쪽 선 · 파란 이름 · 빨간 가격 · 별 */
+.menuwall{padding-block:16px 0}
+.menuboards{display:grid;grid-template-columns:1fr;gap:10px}
+.mb{position:relative;overflow:hidden;display:grid;grid-template-columns:auto auto;justify-content:space-between;align-items:center;gap:6px 12px;border:5px solid transparent;border-radius:6px;padding:16px 22px 16px 24px;
+  background:radial-gradient(ellipse at 50% 38%,#FFFAEC 0%,#FBEFD2 62%,#F1DFB8 100%) padding-box,var(--steel) border-box;
+  box-shadow:0 3px 0 rgba(42,26,20,.18)}
+.mb::before{content:"";position:absolute;inset:5px;border:2px solid var(--red);border-radius:3px;pointer-events:none}
+.mb .nm{display:block;font-family:var(--display);font-weight:400;color:var(--blue);font-size:clamp(30px,9vw,40px);line-height:1.02;transform:rotate(-2.5deg);text-align:left;
+  text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,2px 2px 0 #fff,3px 3px 0 rgba(31,63,143,.22)}
+.mb .en{grid-column:1;grid-row:2;display:block;text-align:left;font:700 10.5px/1.2 var(--body);letter-spacing:.2em;color:var(--blue);opacity:.75}
+.mb .pr{grid-column:2;grid-row:1/3;white-space:nowrap;font-family:var(--display);font-weight:400;color:var(--red);font-size:clamp(42px,13vw,60px);line-height:1;transform:rotate(-2.5deg);
+  text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,3px 3px 0 rgba(168,39,32,.25)}
+.mb .pr small{font-size:.36em;margin-left:2px}
+.mb .sp{position:absolute;line-height:1;font-size:15px;color:var(--blue)}
+.mb .sp.r{color:var(--red)}
+.mb .s1{top:12px;left:44%}.mb .s2{top:12px;right:14px;font-size:13px}.mb .s3{bottom:12px;left:52%;font-size:11px}.mb .s4{bottom:12px;right:20px;font-size:15px}
+.menunote{max-width:none;margin:8px 0 0;text-align:center;font-size:12.5px;color:var(--muted)}
+
+/* 첫 화면 */
+.hero{padding-block:28px 6px;display:grid;justify-items:center;text-align:center;gap:16px}
+.sign{width:min(300px,76%);height:auto;display:block}
+.hero h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(31px,8.6vw,46px);line-height:1.18;color:var(--blue);text-wrap:balance}
+.hero h1 em{font-style:normal;display:block;color:var(--red)}
+.lead{margin:0;max-width:30em;color:var(--muted);font-size:16.5px;text-wrap:pretty}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 28px;border-radius:999px;background:var(--red);color:var(--paper);font:700 17px/1.2 var(--body);text-decoration:none;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--blue)}
+.cta:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--blue)}
+.cta .arrow{font-size:19px}
+.soon{margin:0;font-size:13.5px;color:var(--muted)}
+
+/* 사진 타일 — Patty & Bun 첫 화면 */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:26px}
+.tiles figure{margin:0;border:3px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--paper)}
+.tiles .wide{grid-column:1/-1}
+.tiles img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:1/1}
+.tiles .wide img{aspect-ratio:3/2}
+
+section{padding-block:52px 4px}
+.label{margin:0 0 12px;font:700 12.5px/1.3 var(--body);letter-spacing:.16em;color:var(--blue)}
+.label::before{content:"★ ";color:var(--red)}
+section h2{margin:0 0 16px;font-family:var(--display);font-weight:400;font-size:clamp(25px,6.6vw,31px);line-height:1.3;color:var(--red);text-wrap:balance}
+section p{margin:0 0 14px;max-width:36em;text-wrap:pretty}
+section p:last-child{margin-bottom:0}
+
+/* 메뉴 — Patty & Bun 메뉴 페이지: 파란 테 접시째 사진 → 빨간 이름 → 재료 한 줄 */
+.plates{list-style:none;margin:30px 0 26px;padding:0;display:grid;gap:34px}
+.plate{display:grid;justify-items:center;text-align:center;gap:6px}
+.plate .dish{width:min(270px,74%);aspect-ratio:1/1;border-radius:50%;overflow:hidden;border:9px solid var(--paper);box-shadow:0 0 0 3px var(--blue),0 12px 22px rgba(42,26,20,.18)}
+.plate .dish img{width:100%;height:100%;object-fit:cover;display:block}
+.plate h3{margin:12px 0 0;font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;color:var(--red)}
+.plate p{margin:0;font-size:15px;line-height:1.6;color:var(--muted);max-width:24em}
+@media (min-width:620px){.plates{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.plate .dish{width:100%}.plate h3{font-size:22px}}
+.note{margin-top:18px;font-size:15px;color:var(--muted)}
+
+/* 이름의 뜻 — 크림 메뉴판 */
+.board{background:var(--board);color:var(--ink);border-radius:10px;padding:22px 20px 20px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--red);position:relative}
+.board .word{font-family:var(--display);font-size:clamp(36px,10.4vw,50px);line-height:1.05;color:var(--blue);margin:0}
+.board .word i{font-style:normal;color:var(--red)}
+.board .gloss{font-family:var(--script);font-size:18px;color:var(--red);margin:4px 0 14px}
+.board .star{position:absolute;top:14px;right:16px;color:var(--red);font-size:20px;letter-spacing:6px}
+
+/* 이야기 — Mel's Drive-In 역사 페이지: 옛날 사진 + 파란 리본 + 큰 숫자 */
+.story{padding-top:0}
+.oldphoto{margin:0;position:relative}
+.oldphoto img{display:block;width:100%;height:auto;max-height:520px;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1) sepia(.4) brightness(1.25) contrast(.95);border-bottom:6px solid var(--blue)}
+.ribbon{position:absolute;left:50%;bottom:-20px;transform:translateX(-50%);background:var(--blue);color:var(--paper);font:700 13px/1.2 var(--body);letter-spacing:.14em;padding:11px 18px;white-space:nowrap;border:2px solid var(--paper);box-shadow:0 0 0 2px var(--blue)}
+.story .wrap{padding-block:46px 0}
+.story h2{color:var(--blue);text-align:center;font-size:clamp(28px,7.6vw,38px)}
+.year{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:6px 0 20px;color:var(--red)}
+.year b{font-family:var(--display);font-weight:400;font-size:84px;line-height:1}
+.year span{font:700 13px/1.4 var(--body);letter-spacing:.3em;color:var(--blue)}
+.voice blockquote{margin:0}
+.voice blockquote p{font-size:16.5px}
+.voice .who{font-size:14px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:2px dashed var(--line)}
+.voice .who b{color:var(--blue);font-weight:700}
+
+/* 그대로 / 손본 것 */
+.keep{display:grid;gap:12px;margin:22px 0 10px}
+@media (min-width:520px){.keep{grid-template-columns:1fr 1fr}}
+.keep .board{padding:16px 16px 14px;min-width:0;box-shadow:4px 4px 0 var(--blue)}
+.keep h3{margin:0 0 8px;font-family:var(--display);font-weight:400;font-size:19px;line-height:1.25}
+.keep .same h3{color:var(--blue)}
+.keep .new h3{color:var(--red)}
+.keep ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+.keep li{font-size:15px;line-height:1.55}
+
+/* 손님 말 — 벽에 붙인 쪽지 */
+.review{margin:0;background:var(--paper);border-radius:4px;padding:24px 20px 20px;transform:rotate(-.8deg);box-shadow:0 8px 20px rgba(42,26,20,.16);border:1px solid var(--line);position:relative}
+.review::before{content:"";position:absolute;top:-10px;left:50%;width:84px;height:22px;margin-left:-42px;background:var(--blue);opacity:.35;transform:rotate(2deg)}
+.review p{font-size:17px;line-height:1.7;margin:0 0 10px}
+.review .src{font-size:13px;color:var(--muted);margin:0}
+.review .tr{font-size:14.5px;color:var(--muted);margin:10px 0 0}
+
+/* 맺음: 다이너 주문서(GUEST CHECK) */
+.guest{background:var(--paper);border-radius:6px;max-width:420px;box-shadow:0 10px 24px rgba(42,26,20,.18);border:1px solid var(--line);overflow:hidden;transform:rotate(.8deg)}
+.guest .head{background:var(--red);color:var(--paper);padding:10px 16px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.guest .head b{font-family:var(--script);font-weight:400;font-size:20px;letter-spacing:.02em}
+.guest .head span{font-size:12px;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.guest ol{list-style:none;margin:0;padding:6px 16px 4px}
+.guest li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;padding:9px 0;border-bottom:1px solid var(--paper-rule);font-size:15px;line-height:1.45}
+.guest li .q{font-variant-numeric:tabular-nums;color:var(--red);font-weight:700}
+.guest li .v{text-align:right;color:var(--muted);font-size:13.5px}
+.guest .total{display:flex;justify-content:space-between;padding:12px 16px 16px;font-weight:700}
+.guest .total em{font-style:normal;font-family:var(--script);color:var(--red);font-weight:400;font-size:19px}
+.closing{margin-top:30px}
+.closing h2{color:var(--blue)}
+.closing p{font-size:17px}
+.closing .cta-row{display:grid;justify-items:start;gap:10px;margin-top:22px}
+
+/* 바닥 — Patty & Bun 빨간 바닥 */
+footer{margin-top:60px;background:var(--red);color:var(--paper)}
+footer .wrap{padding-block:24px 44px;display:grid;gap:4px;font-size:13px}
+footer b{font-family:var(--display);font-weight:400;font-size:20px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.cta:active{transform:none}}
 </style>
 
 </head>
 <body>
-<div class="progress"><i id="bar"></i></div>
-
-<div class="wrap">
-<header class="brand">
-  <img class="logo" src="img/logo_main.png" alt="원조할매케밥 · The Original Grandma's Kebab" width="900" height="953">
-  <span class="wordmark-en">WONJO HALMAE KEBAB</span>
+<header class="bar">
+  <div class="wrap">
+    <a class="name" href="#top"><span class="t-ko">원조할매케밥</span><span class="t-en">Wonjo Halmae Kebab</span></a>
+    <button type="button" class="lang" id="langBtn" aria-label="Change language · 언어 바꾸기">LANGUAGE <b id="langTo">EN</b></button>
+  </div>
 </header>
-<form id="survey" novalidate>
-  <div class="hp" aria-hidden="true"><input type="text" id="hp" name="hp" tabindex="-1" autocomplete="off"></div>
+<div class="steel"></div>
 
-  <!-- 1단계 (10-29 사장님: 맨 위에 원조할매케밥 로고를 박아 처음부터 원조할매케밥 설문임을 보여 준다) -->
-  <div id="step1">
-    <div class="intro">
-      <h1>시식해 주셔서 감사합니다!<span class="en">Thank you for tasting our food!</span></h1>
-      <p>3분 정도 걸립니다. 답하고 싶은 것만 답해 주셔도 됩니다.<span class="en">It takes about 3 minutes. Answer only what you'd like.</span></p>
-      <p>모든 답은 익명으로 저장됩니다.<span class="en">All answers are saved anonymously.</span></p>
-          </div>
-
-    <!-- 10-18 사장님 「손님정보 먼저」 → 손님 정보를 1번으로, 케밥 경험은 2~3번 · 10-29 이름 기억 문항은 맨 위 로고 때문에 뺌 -->
-    <div class="group" style="margin-top:14px">
-      <h2>손님 정보 · ABOUT YOU</h2>
-      <div class="q"><span class="n">1</span><div class="body">
-        <div class="qt">연령 · 성별 · 직업<span class="en">Age · Gender · Occupation</span></div>
-        <div class="sub"><b>연령 <small class="opt">Age</small></b><div class="choices" id="age"></div></div>
-        <div class="sub"><b>성별 <small class="opt">Gender</small></b><div class="choices" id="sex"></div></div>
-        <div class="sub"><b>직업 <small class="opt">Occupation</small></b><div class="choices" id="job"></div></div>
-      </div></div>
+<!-- 메뉴·가격 출처 = survey_template.html MENUS (db/store/menu_prices.csv · 워킹타코 9,900 · 케밥 = 소고기 단품 10,900) -->
+<section class="wrap menuwall" aria-label="메뉴 · Menu">
+  <div class="menuboards">
+    <div class="mb">
+      <span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp r s3" aria-hidden="true">✦</span><span class="sp s4" aria-hidden="true">✦</span>
+      <b class="nm"><span class="t-ko">워킹<br>타코</span><span class="t-en">WALKING<br>TACO</span></b>
+      <span class="en"><span class="t-ko">WALKING TACO</span><span class="t-en">워킹타코</span></span>
+      <b class="pr">9,900<small>원</small></b>
     </div>
-
-    <div class="group">
-      <h2>케밥 경험 · KEBAB</h2>
-      <div class="q"><span class="n">2</span><div class="body">
-        <div class="qt">케밥 드셔 본 적 있으세요?<span class="en">Have you ever had a kebab before?</span></div>
-        <div class="choices" id="kebab_before"></div>
-      </div></div>
-      <div class="q" id="q2" hidden><span class="n">3</span><div class="body">
-        <div class="qt">마지막으로 케밥을 드신 게 언제인가요?<span class="en">When did you last have a kebab?</span></div>
-        <div class="choices" id="kebab_last"></div>
-      </div></div>
+    <div class="mb">
+      <span class="sp r s1" aria-hidden="true">✦</span><span class="sp s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span>
+      <b class="nm"><span class="t-ko">소고기<br>케밥</span><span class="t-en">BEEF<br>KEBAB</span></b>
+      <span class="en"><span class="t-ko">BEEF KEBAB</span><span class="t-en">소고기 케밥</span></span>
+      <b class="pr">10,900<small>원</small></b>
     </div>
+  </div>
+  <p class="menunote"><span class="t-ko">팝업 시식 메뉴 · 가격은 마곡 매장 판매 예정가입니다.</span><span class="t-en">Tasting menu · Prices planned for the Magok shop (KRW).</span></p>
+</section>
 
-    <div class="nav">
-      <button type="button" class="go" id="toStep2">다음 · Next</button>
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <img class="sign" src="img/logo_main.png" alt="원조할매케밥 · The Original Grandma's Kebab" width="900" height="953">
+      <h1><span class="t-ko">그 짧은 여행을<br>점심 한 끼에<em>중앙아시아로</em></span><span class="t-en">A short trip,<br>packed into one lunch<em>to Central Asia</em></span></h1>
+      <p class="lead"><span class="t-ko">매일의 일상. 비슷한 일과. 나쁠 것 없이 행복한데, 가끔은 어디론가 떠나고 싶을 때가 있습니다.</span><span class="t-en">Every day, the same routine. Life is good, nothing wrong with it. But sometimes you just want to get away.</span></p>
+      <a class="cta" href="survey/"><span class="t-ko">시식 설문 참여하기</span><span class="t-en">Take the tasting survey</span><span class="arrow" aria-hidden="true">→</span></a>
+      <p class="soon"><span class="t-ko">마곡에서 문을 열 준비를 하고 있습니다.</span><span class="t-en">We're getting ready to open in Magok, Seoul.</span></p>
+    </div>
+    <div class="tiles">
+      <figure class="wide"><img src="img/home_spread.jpg" alt="케밥과 감자튀김을 차린 상 · Kebabs and fries on the table" width="1600" height="1067"></figure>
+      <figure><img src="img/home_grill.jpg" alt="꼬치에 쌓아 굽는 케밥 고기를 써는 손 · Slicing kebab meat from the spit" width="1067" height="1600"></figure>
+      <figure><img src="img/home_ricebox.jpg" alt="밥과 케밥 고기, 샐러드, 감자튀김을 담은 도시락 · A rice box with kebab meat, salad and fries" width="1600" height="1067"></figure>
     </div>
   </div>
 
-  <!-- 2단계 -->
-  <div id="step2" hidden>
-    <div class="group" style="margin-top:0">
-      <h2>첫인상 · FIRST IMPRESSION</h2>
-      <div class="q"><span class="n">4</span><div class="body">
-        <div class="qt">로고와 이름만 보고 어떤 가게 같으셨어요?<span class="en">Looking only at the logo and name, what kind of shop did it seem like?</span></div>
-        <div class="choices" id="first_guess"></div>
-      </div></div>
-      <div class="q"><span class="n">5</span><div class="body">
-        <div class="qt">「원조할매케밥」이라는 이름만 보면 먹으러 오시겠어요?<span class="en">Based on the name "Wonjo Halmae Kebab" alone, would you come to eat?</span></div>
-        <div class="choices" id="name_come"></div>
-      </div></div>
-      <div class="q"><span class="n">6</span><div class="body">
-        <div class="qt">매장 내부 모습, 호 · 불호를 골라 주세요<span class="en">Do you like or dislike each store interior?</span></div>
-        <div class="photos" id="store_pick"></div>
-      </div></div>
-    </div>
+  <div class="wrap">
+    <section aria-labelledby="h-taste">
+      <p class="label">맛 · THE TASTE</p>
+      <h2 id="h-taste"><span class="t-ko">현지의 맛은 그대로,<br>호불호는 줄였습니다</span><span class="t-en">The local taste stays.<br>The hard-to-love parts don't.</span></h2>
+      <p><span class="t-ko">중앙아시아의 전통 스트리트 푸드에 한국의 소스를 만나게 했습니다. 고기를 손질하고 굽는 방식, 재료의 구성은 그대로 두고, 처음 드시는 분께 이질적일 수 있는 향신료와 소스만 한국에 맞게 손봤습니다 — 향신료는 바꾸고, 특제 소스를 새로 개발했습니다.</span><span class="t-en">We paired a traditional Central Asian street food with Korean sauces. The way we trim and grill the meat and what goes into it stay the same. We only adjusted the spices and sauces that can feel unfamiliar the first time: the spices are changed, and we developed a new house sauce.</span></p>
+      <ul class="plates">
+        <li class="plate">
+          <div class="dish"><img src="img/plate_local.jpg" alt="접시에 담은 소고기 케밥 · Beef kebab on a plate" width="800" height="800" loading="lazy"></div>
+          <h3><span class="t-ko">현지의 맛</span><span class="t-en">Local Taste</span></h3>
+          <p><span class="t-ko">고기를 손질하고 굽는 방식 · 재료의 구성</span><span class="t-en">How the meat is trimmed and grilled · What goes into it</span></p>
+        </li>
+        <li class="plate">
+          <div class="dish"><img src="img/plate_sauce.jpg" alt="소스를 뿌린 케밥 고기와 감자튀김 · Kebab meat and fries with sauce" width="800" height="800" loading="lazy"></div>
+          <h3><span class="t-ko">한국 소스</span><span class="t-en">Korean Sauce</span></h3>
+          <p><span class="t-ko">향신료는 바꾸고 · 특제 소스는 새로 개발</span><span class="t-en">The spices, changed · A new house sauce</span></p>
+        </li>
+        <li class="plate">
+          <div class="dish"><img src="img/plate_rice.jpg" alt="밥과 케밥 고기를 담은 도시락 · Rice and kebab meat in a box" width="800" height="800" loading="lazy"></div>
+          <h3><span class="t-ko">쌀 케밥</span><span class="t-en">Rice Kebab</span></h3>
+          <p><span class="t-ko">쌀로 먹는 케밥</span><span class="t-en">A kebab you eat with rice</span></p>
+        </li>
+      </ul>
+      <div class="keep">
+        <div class="board same">
+          <h3><span class="t-ko">그대로 둔 것</span><span class="t-en">Kept as it was</span></h3>
+          <ul>
+            <li><span class="t-ko">고기를 손질하고 굽는 방식</span><span class="t-en">How the meat is trimmed and grilled</span></li>
+            <li><span class="t-ko">재료의 구성</span><span class="t-en">What goes into it</span></li>
+          </ul>
+        </div>
+        <div class="board new">
+          <h3><span class="t-ko">한국에 맞게 손본 것</span><span class="t-en">Adjusted for Korea</span></h3>
+          <ul>
+            <li><span class="t-ko">향신료는 바꾸고</span><span class="t-en">The spices, changed</span></li>
+            <li><span class="t-ko">특제 소스는 새로 개발</span><span class="t-en">A new house sauce</span></li>
+            <li><span class="t-ko">쌀로 먹는 케밥</span><span class="t-en">A kebab you eat with rice</span></li>
+          </ul>
+        </div>
+      </div>
+      <p><span class="t-ko">현지의 맛은 그대로 즐기면서 호불호는 줄였습니다. 혹시 향과 소스가 강해서 케밥을 못 드셨던 분이라면, 이참에 한번 시도해 보셔도 좋습니다.</span><span class="t-en">You still get the local taste, with far fewer love-it-or-hate-it moments. If strong aromas and sauces have kept you away from kebabs, this could be a good time to try one.</span></p>
+      <p class="note"><span class="t-ko">그리고 여태 케밥과는 다르게, 한국 정서에 맞게 한 끼 식사가 되도록 쌀로 먹는 케밥도 새로 만들었습니다.</span><span class="t-en">And unlike the kebabs you may know, we made a new kebab you eat with rice, so it's a full meal the Korean way.</span></p>
+    </section>
 
-    <div class="group">
-      <h2>맛 · TASTE</h2>
-      <div class="q"><span class="n">7</span><div class="body">
-        <div class="qt">메뉴마다 맛은 어떠셨어요?<span class="en">How did each menu taste?</span></div>
-        <div id="tasteRows"></div>
-      </div></div>
-      <div class="q"><span class="n">8</span><div class="body">
-        <div class="qt">재구매 의사가 있으신 메뉴가 있나요?<span class="en">Which menu would you buy again with your own money?</span></div>
-        <div class="choices" id="again"></div>
-      </div></div>
-      <div class="q"><span class="n">9</span><div class="body">
-        <div class="qt">재구매 의사가 없으신 메뉴가 있나요? <span class="opt">(답하지 않아도 됨)</span><span class="en">Any menu you probably wouldn't buy again? (optional)</span></div>
-        <div class="choices" id="never"></div>
-      </div></div>
-    </div>
-
-    <div class="group">
-      <h2>모양 · LOOK</h2>
-      <div class="q"><span class="n">10</span><div class="body">
-        <div class="qt">음식이 사진 찍기 좋은가요?<span class="en">Does the food look good in photos?</span></div>
-        <div class="sw"><div class="scale" id="photo"></div><div class="scalekey"><span>별로다<br>Not really</span><span>좋다<br>Great</span></div></div>
-      </div></div>
-      <div class="q"><span class="n">11</span><div class="body">
-        <label class="qt" for="fix_look">음식 모양을 바꿨으면 하는 점이 있으세요? <span class="opt">(답하지 않아도 됨)</span><span class="en">Anything you'd change about how it looks? (optional)</span></label>
-        <textarea id="fix_look" name="fix_look" placeholder="어떤 말씀이든 좋습니다 · Any comment is welcome"></textarea>
-      </div></div>
-    </div>
-
-    <div class="group">
-      <h2>가격 · PRICE</h2>
-      <div class="q"><span class="n">12</span><div class="body">
-        <div class="qt">이 가격이면 사 드시겠어요?<span class="en">Would you buy it at this price?</span></div>
-        <div id="rebuyRows"></div>
-      </div></div>
-      <div class="q"><span class="n">13</span><div class="body">
-        <div class="qt">얼마까지 내실 수 있으세요?<span class="en">How much would you pay?</span></div>
-        <div id="payRows"></div>
-      </div></div>
-      <div class="q"><span class="n">14</span><div class="body">
-        <div class="qt">드셔 보니 어떤 음식과 비슷하다고 느끼셨어요?<span class="en">What food did it remind you of?</span></div>
-        <div class="choices" id="similar"></div>
-      </div></div>
-    </div>
-
-    <div class="group">
-      <h2>다시 사 드실지 · COMING BACK</h2>
-      <div class="q"><span class="n">15</span><div class="body">
-        <div class="qt">친구분께 추천하시겠어요?<span class="en">Would you recommend it to a friend?</span></div>
-        <div class="sw"><div class="scale" id="recommend"></div><div class="scalekey"><span>아니다<br>No</span><span>그렇다<br>Yes</span></div></div>
-      </div></div>
-      <div class="q"><span class="n">16</span><div class="body">
-        <div class="qt">가게가 가까이 있다면, 6개월에 몇 번 사 드실 것 같으세요?<span class="en">If we were nearby, how many times would you buy in 6 months?</span></div>
-        <div class="choices" id="freq"></div>
-      </div></div>
-      <div class="q"><span class="n">17</span><div class="body">
-        <div class="qt">다시 사 드신다면 언제 드실 것 같으세요?<span class="en">If you bought it again, when would it be?</span></div>
-        <div class="choices" id="when"></div>
-      </div></div>
-    </div>
-
-    <div class="group">
-      <h2>고칠 것 · ONE THING</h2>
-      <div class="q"><span class="n">18</span><div class="body">
-        <label class="qt" for="one_change">딱 하나만 바꿀 수 있다면, 무엇을 바꾸고 싶으세요?<span class="en">If you could change just one thing, what would it be?</span></label>
-        <textarea id="one_change" name="one_change" placeholder="하나만 꼽아 주세요 · Just one thing"></textarea>
-      </div></div>
-    </div>
-
-    <div class="group">
-      <h2>알림 · OPENING NEWS</h2>
-      <div class="q"><span class="n">19</span><div class="body">
-        <label class="qt" for="notify_contact">마곡에 가게를 열면 알려 드릴까요?<span class="en">Shall we let you know when we open in Magok?</span></label>
-        <input type="tel" id="notify_contact" name="notify_contact" inputmode="tel" autocomplete="tel" placeholder="휴대폰 번호 · Phone number">
-        <label class="consent" for="notify_consent"><input type="checkbox" id="notify_consent" name="notify_consent" value="동의"><span>연락처는 개점 알림에만 쓰고, 알림을 보낸 뒤 바로 지웁니다. 이에 동의합니다.<span class="en">We'll use your number only for the opening notice and delete it afterwards. I agree.</span></span></label>
-      </div></div>
-    </div>
-
-    <div class="nav">
-      <button type="submit" class="go">보내기 · Send</button>
-      <p class="note">빈칸 있어도 제출하실 수 있습니다.<br>You can send with blanks.</p>
-      <p class="err" id="err" hidden></p>
-      <button type="button" class="back" id="toStep1">이전으로 돌아가기 · Back</button>
-    </div>
+    <section aria-labelledby="h-name">
+      <p class="label">이름의 뜻 · THE NAME</p>
+      <div class="board">
+        <span class="star" aria-hidden="true">★★</span>
+        <p class="word" id="h-name"><span class="t-ko">원조 <i>할매</i></span><span class="t-en">Wonjo <i>Halmae</i></span></p>
+        <p class="gloss"><span class="t-ko">The Original Grandma</span><span class="t-en">“the original grandma”</span></p>
+        <p><span class="t-ko">한국에서 「원조 할매」는 한자리에서 오래도록 같은 맛을 내 온, 역사 깊은 맛집을 부르는 말입니다.</span><span class="t-en">In Korea, “Wonjo Halmae” is what people call a long-loved restaurant that has served the same taste in the same spot for years.</span></p>
+        <p><span class="t-ko">우리 원조할매케밥도 우리가 살던 중앙아시아에서 오랜 시간 같은 맛을 내던 현지 케밥의 맛과 분위기를 그대로 옮겨왔습니다.</span><span class="t-en">Wonjo Halmae Kebab brings over, just as it was, the taste and mood of a local kebab that served the same flavor for a long time in Central Asia, where we lived.</span></p>
+      </div>
+    </section>
   </div>
-</form>
 
-<div class="thanks" id="thanks" hidden>
-  <h2>귀한 시간 내 주셔서 진심으로 감사합니다.<span class="en">Thank you so much for your time.</span></h2>
-  <p>써 주신 말씀은 빠짐없이 챙겨 보겠습니다.<span class="en">We'll read every answer.</span></p>
-  <pre class="dump" id="dump" hidden></pre>
-</div>
-</div>
+  <div class="check" style="margin-top:56px"></div>
+
+  <section aria-labelledby="h-story" class="story voice">
+    <figure class="oldphoto">
+      <img src="img/story_kitchen.jpg" alt="꼬치에 쌓아 굽는 케밥 고기 앞에 선 주방장 · The chef at the kebab spit" width="1600" height="1067" loading="lazy">
+      <figcaption class="ribbon">시작 · HOW IT STARTED</figcaption>
+    </figure>
+    <div class="wrap">
+      <h2 id="h-story"><span class="t-ko">고향의 맛을 못 찾아,<br>직접 굽기 시작했습니다</span><span class="t-en">He couldn't find the taste of home,<br>so he started making it</span></h2>
+      <p class="year" aria-hidden="true"><b>6</b><span class="t-ko">년</span><span class="t-en">YEARS</span></p>
+      <blockquote>
+        <p><span class="t-ko">“저는 스무 살에 유학으로 한국에 와 대학을 다녔고, 대학원까지 6년 — 가장 힘들었던 건 외로움이었습니다. 한국에는 재밌는 것도 많고 좋은 친구도 사귈 수 있었지만, 외로움은 어쩔 수 없었습니다.</span><span class="t-en">“I came to Korea at twenty to study. Through university and graduate school, six years in all, the hardest part was loneliness. Korea had plenty of fun things and I made good friends, but the loneliness never went away.</span></p>
+        <p><span class="t-ko">향수를 이겨내려고 이태원·대구·광주·안산까지 고향의 맛을 찾아다녔습니다. 하지만 못 찾아, 직접 굽기 시작했습니다.</span><span class="t-en">To beat the homesickness, I went looking for the taste of home in Itaewon, Daegu, Gwangju, even Ansan. I couldn't find it, so I started making it myself.</span></p>
+        <p><span class="t-ko">처음엔 친한 대학 친구들에게 나눠줬고 반응이 좋았습니다. 6년 동안 알바를 하며 만난 사람들에게도 나눠줬고, 맛있게 먹는 모습을 보며 언젠가 꼭 이 맛을 사람들에게 나눠주고 싶다고 생각했습니다. 그다음은 퇴근한 단골들 — 그 반응이 이 케밥의 시작이 됐습니다.”</span><span class="t-en">At first I shared it with close friends from university, and they loved it. I shared it with the people I met at part-time jobs over those six years too, and watching them enjoy it, I thought that one day I really wanted to share this taste with everyone. Then came the regulars stopping by after work. Their reaction was the start of this kebab.”</span></p>
+        <p class="who"><span class="t-ko">— 이 케밥을 한국에 처음 가져온 <b>로한</b>. 마곡에서는 현지에서 온 주방장이 그 방식대로 굽습니다.</span><span class="t-en">— <b>Rohan</b>, who first brought this kebab to Korea. In Magok, a chef from Central Asia grills it the same way.</span></p>
+      </blockquote>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section aria-labelledby="h-review">
+      <p class="label" id="h-review">먼저 드신 분들은 · FROM OUR GUESTS</p>
+      <figure class="review">
+        <p>“…터키,중동에서 먹던 그 케밥맛이 나서 너무 맛있게 잘먹고 있습니다. 한국에 파는 대부분 케밥집들에게서 느끼지 못하는 특유의 그 맛이 있어요.”</p>
+        <p class="src"><span class="t-ko">배달의민족 리뷰 · 2026-05-13</span><span class="t-en">Baemin delivery app review · 2026-05-13</span></p>
+        <p class="tr t-en">“…It tastes just like the kebab I had in Turkey and the Middle East, so I'm really enjoying it. It has that special taste I don't get from most kebab shops in Korea.” (translated)</p>
+      </figure>
+    </section>
+
+    <p class="stars" style="margin-top:48px" aria-hidden="true">★<b>★</b>★<b>★</b>★</p>
+
+    <section aria-labelledby="h-trip" style="padding-top:24px">
+      <p class="label">오늘 점심 · TODAY'S LUNCH</p>
+      <div class="guest">
+        <div class="head"><b>Guest Check</b><span><span class="t-ko">마곡 → 중앙아시아</span><span class="t-en">MAGOK → CENTRAL ASIA</span></span></div>
+        <ol>
+          <li><span class="q">1</span><span><span class="t-ko">짧은 여행</span><span class="t-en">A short trip</span></span><span class="v"><span class="t-ko">점심 한 끼</span><span class="t-en">one lunch</span></span></li>
+          <li><span class="q">1</span><span><span class="t-ko">걸리는 시간</span><span class="t-en">Duration</span></span><span class="v"><span class="t-ko">한 시간</span><span class="t-en">one hour</span></span></li>
+          <li><span class="q">0</span><span><span class="t-ko">걱정</span><span class="t-en">Worries</span></span><span class="v"><span class="t-ko">내려놓고</span><span class="t-en">left behind</span></span></li>
+        </ol>
+        <div class="total"><span><span class="t-ko">기분</span><span class="t-en">Mood</span></span><em>Ooh!</em></div>
+      </div>
+      <div class="closing">
+        <h2 id="h-trip"><span class="t-ko">오늘도 어제 같은 점심이라면</span><span class="t-en">If today's lunch is just like yesterday's</span></h2>
+        <p><span class="t-ko">어제는 햄버거, 그제는 샌드위치 — 오늘도 어제 같은 점심이라면, 이번엔 짧은 여행 어떠세요. 한 시간, 마음은 내려놓고 기분은 들뜬 채로 다녀오세요. 원조할매케밥에서 기다리겠습니다.</span><span class="t-en">Burger yesterday, sandwich the day before. If today's lunch is going to be just like yesterday's, how about a short trip this time? One hour: put your mind at ease and come back in a lighter mood. We'll be waiting at Wonjo Halmae Kebab.</span></p>
+        <div class="cta-row">
+          <a class="cta" href="survey/"><span class="t-ko">시식 설문 참여하기</span><span class="t-en">Take the tasting survey</span><span class="arrow" aria-hidden="true">→</span></a>
+          <p class="soon"><span class="t-ko">설문 끝에서 마곡 개점 알림을 신청하실 수 있습니다.</span><span class="t-en">At the end of the survey, you can sign up to hear when we open in Magok.</span></p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="steel"></div>
+  <div class="wrap">
+    <b><span class="t-ko">원조할매케밥</span><span class="t-en">Wonjo Halmae Kebab</span></b>
+    <span><span class="t-ko">서울 마곡 · 개점 준비 중</span><span class="t-en">Magok, Seoul · Opening soon</span></span>
+  </div>
+</footer>
 
 <script>
-/* 보낼 곳 = 경대케밥 홈페이지 후기 서버(fn=survey). 빈칸이면 미리보기 모드(저장 안 함). 주소 끝 #test = 시험 답 */
-var SUBMIT_ENDPOINT = "https://script.google.com/macros/s/AKfycbzjcODvj5GV4QzMt1pP71P3tC4cYvtH844ggqMdgFML9gQlY2QzOV9DZm7KK13sFGTIjw/exec";
-var SURVEY_ID = "wonjo_popup_1030";
-
-/* 가격 출처 = db/store/menu_prices.csv · 워킹타코 9,900(10-09 확정) · 케밥 = 비프 단품 10,900 */
-var MENUS = [
-  {key:"walkingtaco", ko:"워킹타코", en:"Walking Taco", price:"9,900원",
-   pay:["7,900원 이하","8,900원","9,900원","10,900원","11,900원 이상"]},
-  {key:"kebab", ko:"케밥", en:"Kebab", price:"10,900원",
-   pay:["8,900원 이하","9,900원","10,900원","11,900원","12,900원 이상"]}
-];
-
-/* [화면 글, 영어 한 줄] — 저장값은 한국어 글 그대로 */
-var CHOICES = {
-  kebab_before:[["있다","Yes"],["오늘이 처음","Today is my first time"]],
-  kebab_last:[["한 달 안","Within a month"],["6달 안","Within 6 months"],["1년 안","Within a year"],["1년 넘음","Over a year ago"]],
-  age:[["10대","Teens"],["20대 초","Early 20s"],["20대 후","Late 20s"],["30대","30s"],["40대","40s"],["50대 이상","50s+"]],
-  sex:[["여","Female"],["남","Male"],["밝히지 않음","Prefer not to say"]],
-  job:[["대학생","University student"],["대학원생","Graduate student"],["취업준비생","Job seeker"],["직장인","Office worker"],["자영업","Self-employed"],["주부","Homemaker"],["그 밖에","Other"]],
-  first_guess:[["케밥집","Kebab shop"],["한식집","Korean restaurant"],["분식집","Korean snack bar"],["떡집","Rice cake shop"],["카페","Café"],["잘 모르겠다","Not sure"]],
-  name_come:[["온다","I'd come"],["안 온다","I wouldn't"],["이름은 상관없다","The name doesn't matter"]],
-  again:[["워킹타코","Walking Taco"],["케밥","Kebab"],["없다","None"]],
-  never:[["워킹타코","Walking Taco"],["케밥","Kebab"],["없다","None"]],
-  similar:[["김밥","Gimbap"],["햄버거","Burger"],["중국 음식","Chinese food"],["한식","Korean food"],["백반","Korean home meal"],["샌드위치","Sandwich"],["타코","Taco"],["부리토","Burrito"],["비슷한 게 없다","Nothing similar"]],
-  freq:[["0번(안 살 것 같다)","0 (wouldn't buy)"],["1번","1"],["2번","2"],["3번","3"],["4번","4"],["5번","5"],["6번 이상","6+"]],
-  when:[["점심","Lunch"],["저녁","Dinner"],["야식","Late-night snack"],["배달","Delivery"],["단체","Group order"],["선물","Gift"],["다시 안 사 먹을 것 같다","Wouldn't buy again"]]
-};
-/* 7번 = 사장님 확정 16장(2026-10-18) 낱장 · 10-29 사장님 「호 불호라고만」 → 사진 묶음마다 호/불호(저장 칸 store_A~D) · 맨 앞 사진 = 구글폼 5번 대표 사진 · 번호 = interior_survey_final.csv 분류 안 순서 */
-var PHOTOS = {store_pick:[
-  ["사진 A","Photo A",[4,1,2,3,5,6].map(function(k){return "img/store_A_"+k+".jpg";})],
-  ["사진 B","Photo B",[2,1,3,4].map(function(k){return "img/store_B_"+k+".jpg";})],
-  ["사진 C","Photo C",[2,1,3].map(function(k){return "img/store_C_"+k+".jpg";})],
-  ["사진 D","Photo D",[2,1,3].map(function(k){return "img/store_D_"+k+".jpg";})]]};
-var FACES = {"1":"😞","2":"🙁","3":"😐","4":"🙂","5":"😍"};
-
-function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
-function pills(name, list){
-  return list.map(function(p,i){ var id=name+"_"+i;
-    return '<label for="'+id+'"><input type="radio" id="'+id+'" name="'+name+'" value="'+esc(p[0])+'"><span>'+esc(p[0])+'<small>'+esc(p[1])+'</small></span></label>'; }).join("");
-}
-function scale(name, cls){
-  return ["1","2","3","4","5"].map(function(v){ var id=name+"_"+v;
-    return '<label for="'+id+'"><input type="radio" id="'+id+'" name="'+name+'" value="'+v+'"><span><i aria-hidden="true">'+FACES[v]+'</i>'+v+'</span></label>'; }).join("");
-}
-function scaleBlock(name, lo, hi){
-  return '<div class="sw"><div class="scale" id="'+name+'">'+scale(name)+'</div><div class="scalekey"><span>'+lo+'</span><span>'+hi+'</span></div></div>';
-}
-
-Object.keys(CHOICES).forEach(function(n){ var b=document.getElementById(n); if(b) b.innerHTML=pills(n, CHOICES[n]); });
-Object.keys(PHOTOS).forEach(function(n){
-  var box = document.getElementById(n);
-  box.innerHTML = PHOTOS[n].map(function(p){ var key="store_"+p[0].slice(-1);
-    return '<div class="pcard"><p class="ptitle">'+esc(p[0])+' · '+esc(p[1])+'</p><div class="strip">'
-      + p[2].map(function(src,k){ return '<img src="'+src+'" alt="'+esc(p[0])+' '+(k+1)+'" loading="lazy">'; }).join("")
-      + '</div><p class="phint">옆으로 넘겨 보세요 · '+p[2].length+'장 · Swipe to see '+p[2].length+' photos</p><div class="likes">'
-      + [["호","Like"],["불호","Dislike"]].map(function(v,k){ var id=key+"_"+k;
-          return '<label for="'+id+'"><input type="radio" id="'+id+'" name="'+key+'" value="'+v[0]+'"><span>'+v[0]+' · '+v[1]+'</span></label>'; }).join("")
-      + '</div></div>'; }).join("");
-});
-document.getElementById("photo").innerHTML = scale("photo");
-document.getElementById("recommend").innerHTML = scale("recommend");
-
-document.getElementById("tasteRows").innerHTML = MENUS.map(function(m){ var n="taste_"+m.key;
-  return '<div class="mrow"><div class="mname">'+m.ko+'<small>'+m.en+'</small></div><div class="tasteline">'
-    + scaleBlock(n,"별로<br>Not good","좋다<br>Great")
-    + '<div class="scale"><label class="none" for="'+n+'_none"><input type="radio" id="'+n+'_none" name="'+n+'" value="먹지 않음"><span>먹지 않음<small>Didn\'t try</small></span></label></div>'
-    + '</div></div>'; }).join("");
-document.getElementById("rebuyRows").innerHTML = MENUS.map(function(m){
-  return '<div class="mrow"><div class="mname">'+m.ko+' '+m.price+'<small>'+m.en+' ₩'+m.price.replace("원","")+'</small></div>'
-    + scaleBlock("buy_at_price_"+m.key,"아니다<br>No","그렇다<br>Yes")+'</div>'; }).join("");
-document.getElementById("payRows").innerHTML = MENUS.map(function(m){ var n="pay_"+m.key;
-  return '<div class="mrow"><div class="mname">'+m.ko+'<small>'+m.en+'</small></div><div class="scale price">'
-    + m.pay.map(function(p,i){ var id=n+"_"+i, en=/이하/.test(p)?"or less":/이상/.test(p)?"or more":"";
-        return '<label for="'+id+'"><input type="radio" id="'+id+'" name="'+n+'" value="'+esc(p)+'"><span>'+esc(p.replace(/ (이하|이상)$/,""))+'<small>'+(en? p.match(/(이하|이상)$/)[0]+' · '+en : '&nbsp;')+'</small></span></label>'; }).join("")
-    + '</div></div>'; }).join("");
-
-var form = document.getElementById("survey"), bar = document.getElementById("bar");
-var step1 = document.getElementById("step1"), step2 = document.getElementById("step2");
-
-/* 2번은 1번에 「있다」일 때만 */
-form.addEventListener("change", function(e){
-  if(e.target.name === "kebab_before"){
-    var show = e.target.value === "있다";
-    document.getElementById("q2").hidden = !show;
-    if(!show) Array.prototype.forEach.call(form.querySelectorAll('[name="kebab_last"]'), function(x){ x.checked=false; });
+(function(){
+  var root = document.documentElement, btn = document.getElementById("langBtn"), to = document.getElementById("langTo");
+  function set(lang){
+    root.classList.toggle("en", lang === "en");
+    root.lang = lang;
+    to.textContent = lang === "en" ? "한국어" : "EN";
+    try { localStorage.setItem("wonjo_lang", lang); } catch(e) {}
   }
-});
-
-function answers(){
-  var out = {}, seen = {};
-  Array.prototype.forEach.call(form.elements, function(el){
-    var n = el.name; if(!n || n === "hp" || seen[n]) return; seen[n] = true;
-    var list = Array.prototype.slice.call(form.querySelectorAll('[name="'+n+'"]'));
-    if(el.type === "radio"){ var one = list.filter(function(x){return x.checked;})[0]; if(one) out[n] = one.value; }
-    else if(el.type === "checkbox"){ if(el.checked) out[n] = el.value; }
-    else { var v = (el.value||"").trim(); if(v) out[n] = v; }
-  });
-  return out;
-}
-function updateBar(){
-  var names = {}; Array.prototype.forEach.call(form.elements, function(el){ if(el.name && el.name!=="hp" && el.name!=="kebab_last" && el.name!=="notify_consent") names[el.name]=1; });
-  var total = Object.keys(names).length, done = Object.keys(answers()).filter(function(k){return names[k];}).length;
-  bar.style.width = (total ? Math.round(done/total*100) : 0) + "%";
-}
-form.addEventListener("input", updateBar); form.addEventListener("change", updateBar); updateBar();
-
-function go(to){ step1.hidden = to !== 1; step2.hidden = to !== 2; window.scrollTo({top:0, behavior:"smooth"}); }
-document.getElementById("toStep2").addEventListener("click", function(){ go(2); });
-document.getElementById("toStep1").addEventListener("click", function(){ go(1); });
-
-var IS_LIVE = !!SUBMIT_ENDPOINT && SUBMIT_ENDPOINT.indexOf("__") !== 0;
-var previewNote = document.getElementById("previewNote");  // 손님용 판엔 빌더가 지워서 없다
-if(IS_LIVE && previewNote){ previewNote.hidden = true; }
-
-form.addEventListener("submit", function(e){
-  e.preventDefault();
-  var data = answers(), err = document.getElementById("err");
-  function fail(msg){ err.innerHTML = msg; err.hidden = false; err.scrollIntoView({block:"center"}); }
-  if(!Object.keys(data).length) return fail("한 칸이라도 채워 주시면 보낼 수 있어요.<br>Please answer at least one question.");
-  if(data.notify_contact && !data.notify_consent) return fail("알림을 받으시려면 19번 동의에 체크해 주세요.<br>Please tick the consent box in Q19.");
-  if(!data.notify_contact && data.notify_consent) delete data.notify_consent;
-  err.hidden = true;
-  data.survey_id = SURVEY_ID;
-  var payload = { fn:"survey", is_test: location.hash === "#test", lang:"ko", hp: document.getElementById("hp").value, answers: data };
-  function done(){
-    form.hidden = true; document.getElementById("thanks").hidden = false;
-    if(!IS_LIVE){ var d=document.getElementById("dump"); d.hidden=false; d.textContent="미리보기 — 저장되지 않은 답\n\n"+JSON.stringify(payload,null,2); }
-    window.scrollTo({top:0, behavior:"smooth"});
-  }
-  if(!IS_LIVE) return done();
-  var btn = form.querySelector('button[type="submit"]'); btn.disabled = true;
-  fetch(SUBMIT_ENDPOINT, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(payload)})
-    .then(function(r){ return r.json(); })
-    .then(function(res){ if(res && res.ok) done(); else { btn.disabled=false; fail("보내지 못했습니다. 잠시 뒤 다시 눌러 주세요.<br>Couldn't send. Please try again shortly."); } },
-          function(){ btn.disabled=false; fail("보내지 못했습니다. 잠시 뒤 다시 눌러 주세요.<br>Couldn't send. Please try again shortly."); });
-});
+  var saved = null;
+  try { saved = localStorage.getItem("wonjo_lang"); } catch(e) {}
+  set(location.hash === "#en" ? "en" : (saved === "en" ? "en" : "ko"));
+  btn.addEventListener("click", function(){ set(root.classList.contains("en") ? "ko" : "en"); });
+})();
 </script>
 
 </body>
