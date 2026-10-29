@@ -70,7 +70,7 @@ html.en .t-ko{display:none}
 .mb .pr small{font-size:.36em;margin-left:2px}
 .mb .sp{position:absolute;line-height:1;font-size:15px;color:var(--blue)}
 .mb .sp.r{color:var(--red)}
-.mb .s1{top:12px;left:44%}.mb .s2{top:12px;right:14px;font-size:13px}.mb .s3{bottom:12px;left:52%;font-size:11px}.mb .s4{bottom:12px;right:20px;font-size:15px}
+.mb .s1{top:12px;left:44%}.mb .s2{top:12px;right:14px;font-size:13px}.mb .s3{bottom:12px;left:68%;font-size:11px}.mb .s4{bottom:12px;right:20px;font-size:15px}
 .menunote{max-width:none;margin:8px 0 0;text-align:center;font-size:12.5px;color:var(--muted)}
 
 /* 첫 화면 */
@@ -180,23 +180,29 @@ footer b{font-family:var(--display);font-weight:400;font-size:20px}
 </header>
 <div class="steel"></div>
 
-<!-- 메뉴·가격 출처 = survey_template.html MENUS (db/store/menu_prices.csv · 워킹타코 9,900 · 케밥 = 소고기 단품 10,900) -->
+<!-- 메뉴·가격 출처 = 사장님 지정(10-29) 목업 그림 A 메뉴판 그대로: BEEF 8.9 · CHICKEN 7.9 · CHEESE 9.9 -->
 <section class="wrap menuwall" aria-label="메뉴 · Menu">
   <div class="menuboards">
     <div class="mb">
-      <span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp r s3" aria-hidden="true">✦</span><span class="sp s4" aria-hidden="true">✦</span>
-      <b class="nm"><span class="t-ko">워킹<br>타코</span><span class="t-en">WALKING<br>TACO</span></b>
-      <span class="en"><span class="t-ko">WALKING TACO</span><span class="t-en">워킹타코</span></span>
-      <b class="pr">9,900<small>원</small></b>
+      <span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span>
+      <b class="nm"><span class="t-ko">소고기<br>케밥</span><span class="t-en">BEEF<br>KEBAB</span></b>
+      <span class="en">8,900원 · BEEF KEBAB</span>
+      <b class="pr">8.9</b>
     </div>
     <div class="mb">
       <span class="sp r s1" aria-hidden="true">✦</span><span class="sp s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span>
-      <b class="nm"><span class="t-ko">소고기<br>케밥</span><span class="t-en">BEEF<br>KEBAB</span></b>
-      <span class="en"><span class="t-ko">BEEF KEBAB</span><span class="t-en">소고기 케밥</span></span>
-      <b class="pr">10,900<small>원</small></b>
+      <b class="nm"><span class="t-ko">치킨<br>케밥</span><span class="t-en">CHICKEN<br>KEBAB</span></b>
+      <span class="en">7,900원 · CHICKEN KEBAB</span>
+      <b class="pr">7.9</b>
+    </div>
+    <div class="mb">
+      <span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp r s3" aria-hidden="true">✦</span><span class="sp s4" aria-hidden="true">✦</span>
+      <b class="nm"><span class="t-ko">치즈<br>케밥</span><span class="t-en">CHEESE<br>KEBAB</span></b>
+      <span class="en">9,900원 · CHEESE KEBAB</span>
+      <b class="pr">9.9</b>
     </div>
   </div>
-  <p class="menunote"><span class="t-ko">팝업 시식 메뉴 · 가격은 마곡 매장 판매 예정가입니다.</span><span class="t-en">Tasting menu · Prices planned for the Magok shop (KRW).</span></p>
+  <p class="menunote"><span class="t-ko">마곡 매장 메뉴 · 가격은 바뀔 수 있습니다.</span><span class="t-en">Magok shop menu · Prices may change (KRW).</span></p>
 </section>
 
 <main id="top">
