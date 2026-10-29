@@ -18,15 +18,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Lilita+One&family=Shrikhand&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
 <style>
 /* 소개 첫 화면 · 글 정본 = 서사 정본 v1.2 §9-2(2026-08-19 확정) — 문장은 거기서만 고친다
-   ⭐4판 구성(사장님 10-29 「2번 메뉴 + 1번 이야기」, 본보기 캡처 = benchmark_captures/)
-     위 띠·사진 메뉴·빨간 바닥 = Patty & Bun(크림 바탕, 접시째 사진 + 빨간 이름 + 재료 한 줄)
-     이야기 칸 = Mel's Drive-In 역사 페이지(옛날 사진 + 파란 리본 + 큰 숫자)
+   ⭐5판 구성 = Los Tacos No.1(lostacos1.com, 사장님 10-29 후보 7곳 중 선택 · 캡처 benchmark_captures/lostacos_*)
+     ① 크림 옛날 간판 띠(상호 + 메뉴 이름 줄, 양옆 빨간 판) ② 글자 메뉴 줄 ③ 큰 고기 써는 사진 + 아래 빨간 띠
+     ④ 「✦ 어서 오세요 ✦」 가운데 소개 ⑤ 화면 가득 사진 띠 ⑥ 글 칸 ↔ 사진 칸 반반, 좌우 번갈아(글 칸 모서리 빨간 반짝 별)
+     ⑦ 빨간 바닥
+   메뉴판·메뉴 페이지 = build_site.py MENU(b8e908aa) 그대로
    색 기준 = 사장님 그림 A(brand-ci/reference_images/wonjohalmae_mockup_olditaco_A_counter.png) 크림 메뉴판·파랑/빨강 글씨·별·스테인리스
    ⛔검은·어두운 바탕 금지 · ⛔AI 목업 사진을 사이트에 넣지 말 것(사진은 작가 보정본만) — 색은 전부 아래 토큰에서만 */
 :root{
   color-scheme:light;
-  --cream:#FBF1DC; --paper:#FFFBEF; --board:#FFF4DC; --blue:#1F3F8F; --red:#C8302B; --red-deep:#A82720;
-  --ink:#2A1A14; --muted:#6E5A4E; --line:#E9D6B4; --paper-rule:#EDC9BE;
+  --paper:#FFFDF6; --cream:#FBF3DF; --board:#FFF6E0; --blue:#1F3F8F; --red:#C8302B; --red-deep:#A82720;
+  --ink:#2A1A14; --muted:#6E5A4E; --line:#E9D6B4; --paper-rule:#EDC9BE; --gold:#C9A25A;
   --steel:linear-gradient(180deg,#F4F4F2 0%,#B9BCC0 38%,#8E9298 55%,#D9DBDD 100%);
   --display:"Black Han Sans","IBM Plex Sans KR","Malgun Gothic",sans-serif;
   --script:"Shrikhand","Black Han Sans",cursive;
@@ -34,29 +36,93 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:break-word}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--red)}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
 .t-en{display:none}
 html.en .t-en{display:revert}
 html.en .t-ko{display:none}
-.wrap{max-width:660px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.gut,.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:660px;margin:0 auto}
+.spark{display:inline-block;width:1em;height:1em;color:var(--red);vertical-align:middle}
+.spark svg{display:block;width:100%;height:100%;fill:currentColor}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 
-/* 줄 장식 — 스테인리스 카운터 띠 · 빨강·크림 체크 종이 · 별 줄 */
-.steel{height:10px;background:var(--steel)}
-.check{height:20px;background-color:var(--paper);background-image:linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%),linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%);background-size:20px 20px;background-position:0 0,10px 10px}
-.stars{margin:0;text-align:center;color:var(--red);letter-spacing:10px;font-size:15px}
-.stars b{color:var(--blue);font-weight:400}
-
-/* 위 띠 — Patty & Bun 처럼 빨간 띠 */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--red)}
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
-.bar .name{font-family:var(--display);font-size:clamp(15px,4.6vw,19px);white-space:nowrap;color:var(--paper);text-decoration:none}
-.lang{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1 var(--body);letter-spacing:.08em;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer}
+/* ① 간판 띠 — Los Tacos 맨 위: 크림 판 · 금빛 테 · 굵은 상호 + 메뉴 이름 줄 · 양옆 빨간 판 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);box-shadow:0 2px 0 var(--line)}
+.signrow{display:grid;grid-template-columns:minmax(0,1fr);gap:0;padding-block:6px}
+.side{display:none}
+.signboard{min-width:0;position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--board);border:3px solid var(--gold);box-shadow:inset 0 0 0 2px var(--board),inset 0 0 0 4px var(--red);padding:6px 8px 6px 14px}
+.signboard .home{min-width:0;text-decoration:none;display:grid;line-height:1}
+.signboard .nm{font-family:var(--display);color:var(--blue);font-size:clamp(24px,7.2vw,46px);white-space:nowrap}
+html.en .signboard .nm{font-family:"Lilita One",var(--display);letter-spacing:.02em}
+.signboard .items{margin-top:3px;font:italic 700 clamp(10px,2.6vw,14px)/1.2 var(--body);color:var(--red);letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.signboard .items i{font-style:normal;color:var(--blue);margin:0 .35em}
+.lang{flex:none;display:inline-flex;align-items:center;gap:5px;font:500 11.5px/1 var(--body);letter-spacing:.08em;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:7px 11px;cursor:pointer}
 .lang b{color:var(--blue);font-weight:700}
-.nav{margin-left:auto;margin-right:10px;font:400 18px/1 "Lilita One",var(--display);letter-spacing:.06em;color:var(--paper);text-decoration:none}
-.nav:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
-@media (max-width:420px){.bar .wrap{gap:8px}.nav{margin-right:2px;font-size:16px}.lang{padding:7px 9px;font-size:11px;gap:4px}.en .bar .name{font-size:clamp(12px,3.5vw,17px)}}
-.lang:focus-visible,.cta:focus-visible,.bar .name:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+@media (min-width:860px){
+  .signrow{grid-template-columns:150px minmax(0,1fr) 150px;gap:10px;padding-block:8px}
+  .side{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--red);color:var(--paper);border:3px solid var(--gold);border-radius:4px;box-shadow:inset 0 0 0 2px var(--red),inset 0 0 0 3px var(--paper)}
+  .side b{font-family:var(--script);font-weight:400;font-size:30px;line-height:1;transform:rotate(-6deg)}
+  .side span{font:700 9.5px/1.4 var(--body);letter-spacing:.2em;margin-top:6px;text-align:center}
+  .signboard{justify-content:center;padding:10px 120px}
+  .signboard .nm{font-size:60px}
+  .signboard .items{font-size:16px;margin-top:6px}
+  .signboard .home{justify-items:center;text-align:center}
+  .lang{position:absolute;right:12px;top:50%;transform:translateY(-50%)}
+}
+
+/* ② 글자 메뉴 줄 — Los Tacos 간판 밑 */
+.navrow{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 24px;padding-block:9px;border-top:1px solid var(--line);font:700 12.5px/1.3 var(--body);letter-spacing:.14em}
+.navrow a{color:var(--ink);text-decoration:none}
+.navrow a:hover{color:var(--red)}
+
+/* ③ 큰 사진 + 아래 빨간 띠 */
+.hero{margin:0}
+.hero img{display:block;width:100%;height:auto;aspect-ratio:4/5;max-height:78vh;object-fit:cover;object-position:50% 40%}
+@media (min-width:700px){.hero img{aspect-ratio:16/7;max-height:none}}
+.redbar{background:var(--red);color:var(--paper)}
+.redbar .gut{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding-block:12px}
+.redbar .soon{font:700 12.5px/1.4 var(--body);letter-spacing:.1em}
+.redbar a{color:var(--paper);font:700 14px/1.3 var(--body);letter-spacing:.1em;text-decoration:none;border-bottom:2px solid var(--paper);padding-bottom:2px}
+
+/* ④ 어서 오세요 — 가운데 굵은 제목 양옆 반짝 별 · 기울인 굵은 소개 · 가는 본문 */
+.welcome{max-width:760px;margin:0 auto;padding-block:58px 64px;display:grid;justify-items:center;text-align:center;gap:14px}
+.welcome .eyebrow{display:flex;align-items:center;gap:14px;margin:0;font-family:var(--display);font-weight:400;font-size:clamp(30px,8vw,44px);line-height:1;letter-spacing:.08em;color:var(--ink)}
+.welcome .eyebrow.sm{font-size:clamp(20px,5vw,26px)}
+.welcome .eyebrow .spark{width:.5em;height:.5em}
+.welcome .sign{width:132px;height:auto;display:block}
+.welcome h1{margin:6px 0 0;font-family:var(--display);font-weight:400;font-size:clamp(23px,5.6vw,32px);line-height:1.3;color:var(--blue);transform:skewX(-7deg);text-wrap:balance}
+.welcome h1 em{font-style:normal;color:var(--red)}
+.welcome .lead{margin:0;max-width:34em;color:var(--muted);font-style:italic;font-size:16.5px;text-wrap:pretty}
+
+/* ⑤ 화면 가득 사진 띠 */
+.band{margin:0}
+.band img{display:block;width:100%;height:auto;aspect-ratio:3/2;max-height:620px;object-fit:cover}
+@media (min-width:700px){.band img{aspect-ratio:16/7}}
+
+/* ⑥ 글 칸 ↔ 사진 칸 반반, 좌우 번갈아 */
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+.split .pic{margin:0;min-width:0}
+.split .pic img{display:block;width:100%;height:100%;min-height:300px;max-height:560px;aspect-ratio:1/1;object-fit:cover}
+.cell{position:relative;min-width:0;padding-block:62px 52px;display:grid;align-content:center;justify-items:center;text-align:center;background:var(--paper)}
+.cell .corner{position:absolute;display:flex;gap:6px}
+.cell .corner .spark{width:22px;height:22px}
+.cell .corner .spark+.spark{width:13px;height:13px;margin-top:16px}
+.cell .tl{top:18px;left:max(16px,env(safe-area-inset-left,0px))}
+.cell .tr{top:18px;right:max(16px,env(safe-area-inset-right,0px));flex-direction:row-reverse}
+.cell .inner{display:grid;gap:14px;max-width:520px;width:100%;justify-items:center}
+.cell h2{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(27px,7vw,36px);line-height:1.25;color:var(--ink);transform:skewX(-7deg);text-wrap:balance}
+.cell .sub{margin:0;font:italic 700 13px/1.6 var(--body);letter-spacing:.12em;color:var(--blue)}
+.cell p{margin:0;max-width:34em;text-align:left;text-wrap:pretty}
+.cell .inner>.menunote,.cell .inner>.sub{text-align:center}
+@media (min-width:860px){
+  .split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .split.flip .pic{order:2}
+  .split .pic img{max-height:none;aspect-ratio:auto;min-height:100%}
+  .cell{padding-block:80px 70px}
+}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;background:var(--red);color:var(--paper);font:700 15px/1.2 var(--body);letter-spacing:.1em;text-decoration:none;border-radius:2px}
+.btn:hover{background:var(--red-deep)}
 
 /* 카운터 위 레트로 메뉴판(그림 A 그대로 — 영어 둥근 글씨 · 바랜 종이 · 손그림 빨간 테 · 큰 가격 · 별) */
 .menuwall{max-width:1040px;margin:0 auto;padding:18px max(12px,env(safe-area-inset-left,0px)) 0}
@@ -83,252 +149,228 @@ html.en .t-ko{display:none}
 .menulink a{font:700 14px/1 var(--body);letter-spacing:.14em;color:var(--blue);text-decoration:none;border:2px solid var(--blue);border-radius:999px;padding:11px 20px;background:var(--paper)}
 .menunote{max-width:none;margin:8px 0 0;text-align:center;font-size:12.5px;color:var(--muted)}
 
-/* 첫 화면 */
-.hero{padding-block:28px 6px;display:grid;justify-items:center;text-align:center;gap:16px}
-.sign{width:min(300px,76%);height:auto;display:block}
-.hero h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(31px,8.6vw,46px);line-height:1.18;color:var(--blue);text-wrap:balance}
-.hero h1 em{font-style:normal;display:block;color:var(--red)}
-.lead{margin:0;max-width:30em;color:var(--muted);font-size:16.5px;text-wrap:pretty}
-.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 28px;border-radius:999px;background:var(--red);color:var(--paper);font:700 17px/1.2 var(--body);text-decoration:none;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--blue)}
-.cta:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--blue)}
-.cta .arrow{font-size:19px}
-.soon{margin:0;font-size:13.5px;color:var(--muted)}
+/* 반 칸 안의 메뉴판은 이름 위·가격 아래로 */
+.cell .menuboards{width:100%}
+.cell .mb{grid-template-columns:1fr;justify-items:center;text-align:center;padding:16px 8px 14px;min-height:126px}
+.cell .mb .nm{font-size:clamp(16px,4.6vw,24px)}
+.cell .mb .pr{font-size:clamp(34px,9.5vw,52px)}
 
-/* 사진 타일 — Patty & Bun 첫 화면 */
-.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:26px}
-.tiles figure{margin:0;border:3px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--paper)}
-.tiles .wide{grid-column:1/-1}
-.tiles img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:1/1}
-.tiles .wide img{aspect-ratio:3/2}
-
-section{padding-block:52px 4px}
-.label{margin:0 0 12px;font:700 12.5px/1.3 var(--body);letter-spacing:.16em;color:var(--blue)}
-.label::before{content:"★ ";color:var(--red)}
-section h2{margin:0 0 16px;font-family:var(--display);font-weight:400;font-size:clamp(25px,6.6vw,31px);line-height:1.3;color:var(--red);text-wrap:balance}
-section p{margin:0 0 14px;max-width:36em;text-wrap:pretty}
-section p:last-child{margin-bottom:0}
-
-/* 메뉴 — Patty & Bun 메뉴 페이지: 파란 테 접시째 사진 → 빨간 이름 → 재료 한 줄 */
-.plates{list-style:none;margin:30px 0 26px;padding:0;display:grid;gap:34px}
-.plate{display:grid;justify-items:center;text-align:center;gap:6px}
-.plate .dish{width:min(270px,74%);aspect-ratio:1/1;border-radius:50%;overflow:hidden;border:9px solid var(--paper);box-shadow:0 0 0 3px var(--blue),0 12px 22px rgba(42,26,20,.18)}
-.plate .dish img{width:100%;height:100%;object-fit:cover;display:block}
-.plate h3{margin:12px 0 0;font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;color:var(--red)}
-.plate p{margin:0;font-size:15px;line-height:1.6;color:var(--muted);max-width:24em}
-@media (min-width:620px){.plates{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.plate .dish{width:100%}.plate h3{font-size:22px}}
-.note{margin-top:18px;font-size:15px;color:var(--muted)}
-
-/* 이름의 뜻 — 크림 메뉴판 */
-.board{background:var(--board);color:var(--ink);border-radius:10px;padding:22px 20px 20px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--red);position:relative}
-.board .word{font-family:var(--display);font-size:clamp(36px,10.4vw,50px);line-height:1.05;color:var(--blue);margin:0}
-.board .word i{font-style:normal;color:var(--red)}
-.board .gloss{font-family:var(--script);font-size:18px;color:var(--red);margin:4px 0 14px}
-.board .star{position:absolute;top:14px;right:16px;color:var(--red);font-size:20px;letter-spacing:6px}
-
-/* 이야기 — Mel's Drive-In 역사 페이지: 옛날 사진 + 파란 리본 + 큰 숫자 */
-.story{padding-top:0}
-.oldphoto{margin:0;position:relative}
-.oldphoto img{display:block;width:100%;height:auto;max-height:520px;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1) sepia(.4) brightness(1.25) contrast(.95);border-bottom:6px solid var(--blue)}
-.ribbon{position:absolute;left:50%;bottom:-20px;transform:translateX(-50%);background:var(--blue);color:var(--paper);font:700 13px/1.2 var(--body);letter-spacing:.14em;padding:11px 18px;white-space:nowrap;border:2px solid var(--paper);box-shadow:0 0 0 2px var(--blue)}
-.story .wrap{padding-block:46px 0}
-.story h2{color:var(--blue);text-align:center;font-size:clamp(28px,7.6vw,38px)}
-.year{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:6px 0 20px;color:var(--red)}
-.year b{font-family:var(--display);font-weight:400;font-size:84px;line-height:1}
-.year span{font:700 13px/1.4 var(--body);letter-spacing:.3em;color:var(--blue)}
-.voice blockquote{margin:0}
-.voice blockquote p{font-size:16.5px}
-.voice .who{font-size:14px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:2px dashed var(--line)}
-.voice .who b{color:var(--blue);font-weight:700}
-
-/* 그대로 / 손본 것 */
-.keep{display:grid;gap:12px;margin:22px 0 10px}
+/* 그대로 / 손본 것 — 크림 메뉴판 쪽지 */
+.keep{display:grid;gap:10px;width:100%}
 @media (min-width:520px){.keep{grid-template-columns:1fr 1fr}}
-.keep .board{padding:16px 16px 14px;min-width:0;box-shadow:4px 4px 0 var(--blue)}
-.keep h3{margin:0 0 8px;font-family:var(--display);font-weight:400;font-size:19px;line-height:1.25}
+.board{background:var(--board);border:2px solid var(--ink);border-radius:6px;padding:14px 16px 12px;text-align:left;min-width:0}
+.board h3{margin:0 0 6px;font-family:var(--display);font-weight:400;font-size:18px;line-height:1.25}
 .keep .same h3{color:var(--blue)}
 .keep .new h3{color:var(--red)}
-.keep ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
-.keep li{font-size:15px;line-height:1.55}
+.board ul{margin:0;padding-left:1.1em;display:grid;gap:3px}
+.board li{font-size:14.5px;line-height:1.55}
+.note{color:var(--muted);font-size:15px}
 
-/* 손님 말 — 벽에 붙인 쪽지 */
-.review{margin:0;background:var(--paper);border-radius:4px;padding:24px 20px 20px;transform:rotate(-.8deg);box-shadow:0 8px 20px rgba(42,26,20,.16);border:1px solid var(--line);position:relative}
-.review::before{content:"";position:absolute;top:-10px;left:50%;width:84px;height:22px;margin-left:-42px;background:var(--blue);opacity:.35;transform:rotate(2deg)}
-.review p{font-size:17px;line-height:1.7;margin:0 0 10px}
+/* 이름의 뜻 — 가운데 큰 글씨 */
+.name{background:var(--cream);border-block:2px solid var(--line)}
+.name .welcome{padding-block:56px 60px}
+.name .word{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(42px,12vw,64px);line-height:1;color:var(--blue)}
+.name .word i{font-style:normal;color:var(--red)}
+.name .gloss{margin:0;font-family:var(--script);font-size:19px;color:var(--red)}
+.name p.body{margin:0;max-width:34em;text-wrap:pretty}
+
+/* 이야기 */
+.year{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:0;color:var(--red)}
+.year b{font-family:var(--display);font-weight:400;font-size:72px;line-height:1}
+.year span{font:700 13px/1.4 var(--body);letter-spacing:.3em;color:var(--blue)}
+.voice{margin:0;display:grid;gap:12px}
+.voice .who{font-size:14px;color:var(--muted);padding-top:12px;border-top:2px dashed var(--line)}
+.voice .who b{color:var(--blue)}
+
+/* 손님 말 — 벽 쪽지 */
+.review{margin:0;max-width:560px;background:var(--board);border:1px solid var(--line);border-radius:4px;padding:24px 20px 18px;transform:rotate(-.8deg);box-shadow:0 8px 20px rgba(42,26,20,.14);position:relative;text-align:left}
+.review::before{content:"";position:absolute;top:-10px;left:50%;width:84px;height:22px;margin-left:-42px;background:var(--blue);opacity:.3;transform:rotate(2deg)}
+.review p{margin:0 0 10px;font-size:16.5px;line-height:1.7}
 .review .src{font-size:13px;color:var(--muted);margin:0}
-.review .tr{font-size:14.5px;color:var(--muted);margin:10px 0 0}
+.review .tr{font-size:14px;color:var(--muted);margin:10px 0 0}
 
-/* 맺음: 다이너 주문서(GUEST CHECK) */
-.guest{background:var(--paper);border-radius:6px;max-width:420px;box-shadow:0 10px 24px rgba(42,26,20,.18);border:1px solid var(--line);overflow:hidden;transform:rotate(.8deg)}
+/* 오늘 점심 — 다이너 주문서 */
+.guest{width:100%;max-width:400px;background:var(--paper);border-radius:6px;box-shadow:0 10px 24px rgba(42,26,20,.16);border:1px solid var(--line);overflow:hidden;transform:rotate(.8deg);text-align:left}
 .guest .head{background:var(--red);color:var(--paper);padding:10px 16px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.guest .head b{font-family:var(--script);font-weight:400;font-size:20px;letter-spacing:.02em}
-.guest .head span{font-size:12px;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.guest .head b{font-family:var(--script);font-weight:400;font-size:20px}
+.guest .head span{font-size:12px;letter-spacing:.12em}
 .guest ol{list-style:none;margin:0;padding:6px 16px 4px}
 .guest li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;padding:9px 0;border-bottom:1px solid var(--paper-rule);font-size:15px;line-height:1.45}
 .guest li .q{font-variant-numeric:tabular-nums;color:var(--red);font-weight:700}
 .guest li .v{text-align:right;color:var(--muted);font-size:13.5px}
 .guest .total{display:flex;justify-content:space-between;padding:12px 16px 16px;font-weight:700}
 .guest .total em{font-style:normal;font-family:var(--script);color:var(--red);font-weight:400;font-size:19px}
-.closing{margin-top:30px}
-.closing h2{color:var(--blue)}
-.closing p{font-size:17px}
-.closing .cta-row{display:grid;justify-items:start;gap:10px;margin-top:22px}
 
-/* 바닥 — Patty & Bun 빨간 바닥 */
-footer{margin-top:60px;background:var(--red);color:var(--paper)}
-footer .wrap{padding-block:24px 44px;display:grid;gap:4px;font-size:13px}
-footer b{font-family:var(--display);font-weight:400;font-size:20px}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.cta:active{transform:none}}
+/* ⑦ 빨간 바닥 */
+footer{margin-top:0;background:var(--red);color:var(--paper)}
+footer .steel{height:8px;background:var(--steel)}
+footer .gut{max-width:1200px;margin:0 auto;padding-block:22px 40px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;font-size:13px;letter-spacing:.08em}
+footer b{font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:0}
+main+footer{margin-top:0}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.mb{transition:none}}
 </style>
 
 </head>
 <body>
 <header class="bar">
-  <div class="wrap">
-    <a class="name" href="#top"><span class="t-ko">원조할매케밥</span><span class="t-en">Wonjo Halmae Kebab</span></a>
-    <a class="nav" href="menu/">MENU</a>
-    <button type="button" class="lang" id="langBtn" aria-label="Change language · 언어 바꾸기">LANGUAGE <b id="langTo">EN</b></button>
+  <div class="signrow gut">
+    <div class="side" aria-hidden="true"><b>Ooh!</b><span>MAGOK · SEOUL</span></div>
+    <div class="signboard">
+      <a class="home" href="#top">
+        <span class="nm"><span class="t-ko">원조할매케밥</span><span class="t-en">WONJO HALMAE</span></span>
+        <span class="items">BEEF<i>✦</i>CHICKEN<i>✦</i>CHEESE<i>✦</i>KEBAB</span>
+      </a>
+      <button type="button" class="lang" id="langBtn" aria-label="Change language · 언어 바꾸기">LANGUAGE <b id="langTo">EN</b></button>
+    </div>
+    <div class="side" aria-hidden="true"><b>Kebab!</b><span>THE ORIGINAL GRANDMA</span></div>
   </div>
+  <nav class="navrow gut" aria-label="바로 가기 · Jump to">
+    <a href="menu/">MENU</a>
+    <a href="#taste"><span class="t-ko">맛</span><span class="t-en">THE TASTE</span></a>
+    <a href="#story"><span class="t-ko">이야기</span><span class="t-en">OUR STORY</span></a>
+    <a href="survey/"><span class="t-ko">시식 설문</span><span class="t-en">SURVEY</span></a>
+  </nav>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="sp" viewBox="0 0 24 24"><path d="M12 0 13.4 10.6 24 12 13.4 13.4 12 24 10.6 13.4 0 12 10.6 10.6Z"/></symbol></svg>
 </header>
-<div class="steel"></div>
-
-<!-- 메뉴판 = build_site.py MENU 에서 채움(메뉴 목록·상세와 같은 판) -->
-<section class="menuwall" aria-label="Menu">
-  <div class="menuboards">
-    <a class="mb" href="menu/beef-kebab/" aria-label="Beef Kebab ₩8,900"><span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span><b class="nm">BEEF<br>KEBAB</b><b class="pr">8.9</b><span class="tick" aria-hidden="true">//</span></a>
-    <a class="mb" href="menu/chicken-kebab/" aria-label="Chicken Kebab ₩7,900"><span class="sp r s1" aria-hidden="true">✦</span><span class="sp s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span><b class="nm">CHICKEN<br>KEBAB</b><b class="pr">7.9</b><span class="tick" aria-hidden="true">//</span></a>
-    <a class="mb" href="menu/cheese-kebab/" aria-label="Cheese Kebab ₩9,900"><span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp r s3" aria-hidden="true">✦</span><span class="sp s4" aria-hidden="true">✦</span><b class="nm">CHEESE<br>KEBAB</b><b class="pr">9.9</b><span class="tick" aria-hidden="true">//</span></a>
-  </div>
-  <p class="menulink"><a href="menu/">SEE THE MENU →</a></p>
-</section>
 
 <main id="top">
-  <div class="wrap">
-    <div class="hero">
-      <img class="sign" src="img/logo_main.png" alt="원조할매케밥 · The Original Grandma's Kebab" width="900" height="953">
-      <h1><span class="t-ko">그 짧은 여행을<br>점심 한 끼에<em>중앙아시아로</em></span><span class="t-en">A short trip,<br>packed into one lunch<em>to Central Asia</em></span></h1>
-      <p class="lead"><span class="t-ko">매일의 일상. 비슷한 일과. 나쁠 것 없이 행복한데, 가끔은 어디론가 떠나고 싶을 때가 있습니다.</span><span class="t-en">Every day, the same routine. Life is good, nothing wrong with it. But sometimes you just want to get away.</span></p>
-      <a class="cta" href="survey/"><span class="t-ko">시식 설문 참여하기</span><span class="t-en">Take the tasting survey</span><span class="arrow" aria-hidden="true">→</span></a>
-      <p class="soon"><span class="t-ko">마곡에서 문을 열 준비를 하고 있습니다.</span><span class="t-en">We're getting ready to open in Magok, Seoul.</span></p>
-    </div>
-    <div class="tiles">
-      <figure class="wide"><img src="img/home_spread.jpg" alt="케밥과 감자튀김을 차린 상 · Kebabs and fries on the table" width="1600" height="1067"></figure>
-      <figure><img src="img/home_grill.jpg" alt="꼬치에 쌓아 굽는 케밥 고기를 써는 손 · Slicing kebab meat from the spit" width="1067" height="1600"></figure>
-      <figure><img src="img/home_ricebox.jpg" alt="밥과 케밥 고기, 샐러드, 감자튀김을 담은 도시락 · A rice box with kebab meat, salad and fries" width="1600" height="1067"></figure>
+  <figure class="hero">
+    <img src="img/home_grill.jpg" alt="꼬치에 쌓아 굽는 케밥 고기를 써는 손 · Slicing kebab meat from the spit" width="1067" height="1600">
+  </figure>
+  <div class="redbar">
+    <div class="gut">
+      <span class="soon"><span class="t-ko">마곡에서 문을 열 준비를 하고 있습니다.</span><span class="t-en">We're getting ready to open in Magok, Seoul.</span></span>
+      <a href="survey/"><span class="t-ko">시식 설문 참여하기 →</span><span class="t-en">Take the tasting survey →</span></a>
     </div>
   </div>
 
-  <div class="wrap">
-    <section aria-labelledby="h-taste">
-      <p class="label">맛 · THE TASTE</p>
-      <h2 id="h-taste"><span class="t-ko">현지의 맛은 그대로,<br>호불호는 줄였습니다</span><span class="t-en">The local taste stays.<br>The hard-to-love parts don't.</span></h2>
-      <p><span class="t-ko">중앙아시아의 전통 스트리트 푸드에 한국의 소스를 만나게 했습니다. 고기를 손질하고 굽는 방식, 재료의 구성은 그대로 두고, 처음 드시는 분께 이질적일 수 있는 향신료와 소스만 한국에 맞게 손봤습니다 — 향신료는 바꾸고, 특제 소스를 새로 개발했습니다.</span><span class="t-en">We paired a traditional Central Asian street food with Korean sauces. The way we trim and grill the meat and what goes into it stay the same. We only adjusted the spices and sauces that can feel unfamiliar the first time: the spices are changed, and we developed a new house sauce.</span></p>
-      <ul class="plates">
-        <li class="plate">
-          <div class="dish"><img src="img/plate_local.jpg" alt="접시에 담은 소고기 케밥 · Beef kebab on a plate" width="800" height="800" loading="lazy"></div>
-          <h3><span class="t-ko">현지의 맛</span><span class="t-en">Local Taste</span></h3>
-          <p><span class="t-ko">고기를 손질하고 굽는 방식 · 재료의 구성</span><span class="t-en">How the meat is trimmed and grilled · What goes into it</span></p>
-        </li>
-        <li class="plate">
-          <div class="dish"><img src="img/plate_sauce.jpg" alt="소스를 뿌린 케밥 고기와 감자튀김 · Kebab meat and fries with sauce" width="800" height="800" loading="lazy"></div>
-          <h3><span class="t-ko">한국 소스</span><span class="t-en">Korean Sauce</span></h3>
-          <p><span class="t-ko">향신료는 바꾸고 · 특제 소스는 새로 개발</span><span class="t-en">The spices, changed · A new house sauce</span></p>
-        </li>
-        <li class="plate">
-          <div class="dish"><img src="img/plate_rice.jpg" alt="밥과 케밥 고기를 담은 도시락 · Rice and kebab meat in a box" width="800" height="800" loading="lazy"></div>
-          <h3><span class="t-ko">쌀 케밥</span><span class="t-en">Rice Kebab</span></h3>
-          <p><span class="t-ko">쌀로 먹는 케밥</span><span class="t-en">A kebab you eat with rice</span></p>
-        </li>
-      </ul>
-      <div class="keep">
-        <div class="board same">
-          <h3><span class="t-ko">그대로 둔 것</span><span class="t-en">Kept as it was</span></h3>
-          <ul>
-            <li><span class="t-ko">고기를 손질하고 굽는 방식</span><span class="t-en">How the meat is trimmed and grilled</span></li>
-            <li><span class="t-ko">재료의 구성</span><span class="t-en">What goes into it</span></li>
-          </ul>
-        </div>
-        <div class="board new">
-          <h3><span class="t-ko">한국에 맞게 손본 것</span><span class="t-en">Adjusted for Korea</span></h3>
-          <ul>
-            <li><span class="t-ko">향신료는 바꾸고</span><span class="t-en">The spices, changed</span></li>
-            <li><span class="t-ko">특제 소스는 새로 개발</span><span class="t-en">A new house sauce</span></li>
-            <li><span class="t-ko">쌀로 먹는 케밥</span><span class="t-en">A kebab you eat with rice</span></li>
-          </ul>
-        </div>
-      </div>
-      <p><span class="t-ko">현지의 맛은 그대로 즐기면서 호불호는 줄였습니다. 혹시 향과 소스가 강해서 케밥을 못 드셨던 분이라면, 이참에 한번 시도해 보셔도 좋습니다.</span><span class="t-en">You still get the local taste, with far fewer love-it-or-hate-it moments. If strong aromas and sauces have kept you away from kebabs, this could be a good time to try one.</span></p>
-      <p class="note"><span class="t-ko">그리고 여태 케밥과는 다르게, 한국 정서에 맞게 한 끼 식사가 되도록 쌀로 먹는 케밥도 새로 만들었습니다.</span><span class="t-en">And unlike the kebabs you may know, we made a new kebab you eat with rice, so it's a full meal the Korean way.</span></p>
-    </section>
-
-    <section aria-labelledby="h-name">
-      <p class="label">이름의 뜻 · THE NAME</p>
-      <div class="board">
-        <span class="star" aria-hidden="true">★★</span>
-        <p class="word" id="h-name"><span class="t-ko">원조 <i>할매</i></span><span class="t-en">Wonjo <i>Halmae</i></span></p>
-        <p class="gloss"><span class="t-ko">The Original Grandma</span><span class="t-en">“the original grandma”</span></p>
-        <p><span class="t-ko">한국에서 「원조 할매」는 한자리에서 오래도록 같은 맛을 내 온, 역사 깊은 맛집을 부르는 말입니다.</span><span class="t-en">In Korea, “Wonjo Halmae” is what people call a long-loved restaurant that has served the same taste in the same spot for years.</span></p>
-        <p><span class="t-ko">우리 원조할매케밥도 우리가 살던 중앙아시아에서 오랜 시간 같은 맛을 내던 현지 케밥의 맛과 분위기를 그대로 옮겨왔습니다.</span><span class="t-en">Wonjo Halmae Kebab brings over, just as it was, the taste and mood of a local kebab that served the same flavor for a long time in Central Asia, where we lived.</span></p>
-      </div>
-    </section>
+  <div class="welcome gut">
+    <p class="eyebrow"><span class="spark"><svg><use href="#sp"/></svg></span><span class="t-ko">어서 오세요</span><span class="t-en">WELCOME</span><span class="spark"><svg><use href="#sp"/></svg></span></p>
+    <img class="sign" src="img/logo_main.png" alt="원조할매케밥 · The Original Grandma's Kebab" width="900" height="953">
+    <h1><span class="t-ko">그 짧은 여행을 점심 한 끼에 <em>중앙아시아로</em></span><span class="t-en">A short trip, packed into one lunch <em>to Central Asia</em></span></h1>
+    <p class="lead"><span class="t-ko">매일의 일상. 비슷한 일과. 나쁠 것 없이 행복한데, 가끔은 어디론가 떠나고 싶을 때가 있습니다.</span><span class="t-en">Every day, the same routine. Life is good, nothing wrong with it. But sometimes you just want to get away.</span></p>
   </div>
 
-  <div class="check" style="margin-top:56px"></div>
+  <figure class="band"><img src="img/home_spread.jpg" alt="케밥과 감자튀김을 차린 상 · Kebabs and fries on the table" width="1600" height="1067" loading="lazy"></figure>
 
-  <section aria-labelledby="h-story" class="story voice">
-    <figure class="oldphoto">
-      <img src="img/story_kitchen.jpg" alt="꼬치에 쌓아 굽는 케밥 고기 앞에 선 주방장 · The chef at the kebab spit" width="1600" height="1067" loading="lazy">
-      <figcaption class="ribbon">시작 · HOW IT STARTED</figcaption>
-    </figure>
-    <div class="wrap">
-      <h2 id="h-story"><span class="t-ko">고향의 맛을 못 찾아,<br>직접 굽기 시작했습니다</span><span class="t-en">He couldn't find the taste of home,<br>so he started making it</span></h2>
-      <p class="year" aria-hidden="true"><b>6</b><span class="t-ko">년</span><span class="t-en">YEARS</span></p>
-      <blockquote>
-        <p><span class="t-ko">“저는 스무 살에 유학으로 한국에 와 대학을 다녔고, 대학원까지 6년 — 가장 힘들었던 건 외로움이었습니다. 한국에는 재밌는 것도 많고 좋은 친구도 사귈 수 있었지만, 외로움은 어쩔 수 없었습니다.</span><span class="t-en">“I came to Korea at twenty to study. Through university and graduate school, six years in all, the hardest part was loneliness. Korea had plenty of fun things and I made good friends, but the loneliness never went away.</span></p>
-        <p><span class="t-ko">향수를 이겨내려고 이태원·대구·광주·안산까지 고향의 맛을 찾아다녔습니다. 하지만 못 찾아, 직접 굽기 시작했습니다.</span><span class="t-en">To beat the homesickness, I went looking for the taste of home in Itaewon, Daegu, Gwangju, even Ansan. I couldn't find it, so I started making it myself.</span></p>
-        <p><span class="t-ko">처음엔 친한 대학 친구들에게 나눠줬고 반응이 좋았습니다. 6년 동안 알바를 하며 만난 사람들에게도 나눠줬고, 맛있게 먹는 모습을 보며 언젠가 꼭 이 맛을 사람들에게 나눠주고 싶다고 생각했습니다. 그다음은 퇴근한 단골들 — 그 반응이 이 케밥의 시작이 됐습니다.”</span><span class="t-en">At first I shared it with close friends from university, and they loved it. I shared it with the people I met at part-time jobs over those six years too, and watching them enjoy it, I thought that one day I really wanted to share this taste with everyone. Then came the regulars stopping by after work. Their reaction was the start of this kebab.”</span></p>
-        <p class="who"><span class="t-ko">— 이 케밥을 한국에 처음 가져온 <b>로한</b>. 마곡에서는 현지에서 온 주방장이 그 방식대로 굽습니다.</span><span class="t-en">— <b>Rohan</b>, who first brought this kebab to Korea. In Magok, a chef from Central Asia grills it the same way.</span></p>
-      </blockquote>
+  <!-- 메뉴판 = build_site.py MENU 에서 채움(메뉴 목록·상세와 같은 판) -->
+  <div class="split" id="menu">
+    <section class="cell gut" aria-labelledby="h-menu">
+      <span class="corner tl" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <span class="corner tr" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <div class="inner">
+        <h2 id="h-menu">OUR MENU</h2>
+        <p class="sub"><span class="t-ko">마곡 매장에서 굽는 케밥</span><span class="t-en">KEBABS GRILLED IN MAGOK</span></p>
+  <div class="menuboards">
+    <a class="mb" href="menu/beef-kebab/" aria-label="Beef Kebab ₩10,900"><span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span><b class="nm">BEEF<br>KEBAB</b><b class="pr">10.9</b><span class="tick" aria-hidden="true">//</span></a>
+    <a class="mb" href="menu/chicken-kebab/" aria-label="Chicken Kebab ₩8,900"><span class="sp r s1" aria-hidden="true">✦</span><span class="sp s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span><b class="nm">CHICKEN<br>KEBAB</b><b class="pr">8.9</b><span class="tick" aria-hidden="true">//</span></a>
+    <a class="mb" href="menu/cheese-kebab/" aria-label="Cheese Kebab ₩10,900"><span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp r s3" aria-hidden="true">✦</span><span class="sp s4" aria-hidden="true">✦</span><b class="nm">CHEESE<br>KEBAB</b><b class="pr">10.9</b><span class="tick" aria-hidden="true">//</span></a>
+  </div>
+        <p class="menunote"><span class="t-ko">마곡 매장 메뉴 · 가격은 바뀔 수 있습니다.</span><span class="t-en">Magok shop menu · Prices may change (KRW).</span></p>
+        <a class="btn" href="menu/">VIEW MENU</a>
+      </div>
+    </section>
+    <figure class="pic"><img src="img/plate_local.jpg" alt="접시에 담은 소고기 케밥 · Beef kebab on a plate" width="800" height="800" loading="lazy"></figure>
+  </div>
+
+  <div class="split flip" id="taste">
+    <section class="cell gut" aria-labelledby="h-taste">
+      <span class="corner tl" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <span class="corner tr" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <div class="inner">
+        <h2 id="h-taste"><span class="t-ko">현지의 맛은 그대로,<br>호불호는 줄였습니다</span><span class="t-en">The local taste stays.<br>The hard-to-love parts don't.</span></h2>
+        <p class="sub">THE TASTE</p>
+        <p><span class="t-ko">중앙아시아의 전통 스트리트 푸드에 한국의 소스를 만나게 했습니다. 고기를 손질하고 굽는 방식, 재료의 구성은 그대로 두고, 처음 드시는 분께 이질적일 수 있는 향신료와 소스만 한국에 맞게 손봤습니다 — 향신료는 바꾸고, 특제 소스를 새로 개발했습니다.</span><span class="t-en">We paired a traditional Central Asian street food with Korean sauces. The way we trim and grill the meat and what goes into it stay the same. We only adjusted the spices and sauces that can feel unfamiliar the first time: the spices are changed, and we developed a new house sauce.</span></p>
+        <div class="keep">
+          <div class="board same">
+            <h3><span class="t-ko">그대로 둔 것</span><span class="t-en">Kept as it was</span></h3>
+            <ul>
+              <li><span class="t-ko">고기를 손질하고 굽는 방식</span><span class="t-en">How the meat is trimmed and grilled</span></li>
+              <li><span class="t-ko">재료의 구성</span><span class="t-en">What goes into it</span></li>
+            </ul>
+          </div>
+          <div class="board new">
+            <h3><span class="t-ko">한국에 맞게 손본 것</span><span class="t-en">Adjusted for Korea</span></h3>
+            <ul>
+              <li><span class="t-ko">향신료는 바꾸고</span><span class="t-en">The spices, changed</span></li>
+              <li><span class="t-ko">특제 소스는 새로 개발</span><span class="t-en">A new house sauce</span></li>
+              <li><span class="t-ko">쌀로 먹는 케밥</span><span class="t-en">A kebab you eat with rice</span></li>
+            </ul>
+          </div>
+        </div>
+        <p><span class="t-ko">현지의 맛은 그대로 즐기면서 호불호는 줄였습니다. 혹시 향과 소스가 강해서 케밥을 못 드셨던 분이라면, 이참에 한번 시도해 보셔도 좋습니다.</span><span class="t-en">You still get the local taste, with far fewer love-it-or-hate-it moments. If strong aromas and sauces have kept you away from kebabs, this could be a good time to try one.</span></p>
+        <p class="note"><span class="t-ko">그리고 여태 케밥과는 다르게, 한국 정서에 맞게 한 끼 식사가 되도록 쌀로 먹는 케밥도 새로 만들었습니다.</span><span class="t-en">And unlike the kebabs you may know, we made a new kebab you eat with rice, so it's a full meal the Korean way.</span></p>
+      </div>
+    </section>
+    <figure class="pic"><img src="img/home_ricebox.jpg" alt="밥과 케밥 고기, 샐러드, 감자튀김을 담은 도시락 · A rice box with kebab meat, salad and fries" width="1600" height="1067" loading="lazy"></figure>
+  </div>
+
+  <section class="name" aria-labelledby="h-name">
+    <div class="welcome gut">
+      <p class="eyebrow sm"><span class="spark"><svg><use href="#sp"/></svg></span><span class="t-ko">이름의 뜻</span><span class="t-en">THE NAME</span><span class="spark"><svg><use href="#sp"/></svg></span></p>
+      <p class="word" id="h-name"><span class="t-ko">원조 <i>할매</i></span><span class="t-en">Wonjo <i>Halmae</i></span></p>
+      <p class="gloss"><span class="t-ko">The Original Grandma</span><span class="t-en">“the original grandma”</span></p>
+      <p class="body"><span class="t-ko">한국에서 「원조 할매」는 한자리에서 오래도록 같은 맛을 내 온, 역사 깊은 맛집을 부르는 말입니다.</span><span class="t-en">In Korea, “Wonjo Halmae” is what people call a long-loved restaurant that has served the same taste in the same spot for years.</span></p>
+      <p class="body"><span class="t-ko">우리 원조할매케밥도 우리가 살던 중앙아시아에서 오랜 시간 같은 맛을 내던 현지 케밥의 맛과 분위기를 그대로 옮겨왔습니다.</span><span class="t-en">Wonjo Halmae Kebab brings over, just as it was, the taste and mood of a local kebab that served the same flavor for a long time in Central Asia, where we lived.</span></p>
     </div>
   </section>
 
-  <div class="wrap">
-    <section aria-labelledby="h-review">
-      <p class="label" id="h-review">먼저 드신 분들은 · FROM OUR GUESTS</p>
-      <figure class="review">
-        <p>“…터키,중동에서 먹던 그 케밥맛이 나서 너무 맛있게 잘먹고 있습니다. 한국에 파는 대부분 케밥집들에게서 느끼지 못하는 특유의 그 맛이 있어요.”</p>
-        <p class="src"><span class="t-ko">배달의민족 리뷰 · 2026-05-13</span><span class="t-en">Baemin delivery app review · 2026-05-13</span></p>
-        <p class="tr t-en">“…It tastes just like the kebab I had in Turkey and the Middle East, so I'm really enjoying it. It has that special taste I don't get from most kebab shops in Korea.” (translated)</p>
-      </figure>
-    </section>
-
-    <p class="stars" style="margin-top:48px" aria-hidden="true">★<b>★</b>★<b>★</b>★</p>
-
-    <section aria-labelledby="h-trip" style="padding-top:24px">
-      <p class="label">오늘 점심 · TODAY'S LUNCH</p>
-      <div class="guest">
-        <div class="head"><b>Guest Check</b><span><span class="t-ko">마곡 → 중앙아시아</span><span class="t-en">MAGOK → CENTRAL ASIA</span></span></div>
-        <ol>
-          <li><span class="q">1</span><span><span class="t-ko">짧은 여행</span><span class="t-en">A short trip</span></span><span class="v"><span class="t-ko">점심 한 끼</span><span class="t-en">one lunch</span></span></li>
-          <li><span class="q">1</span><span><span class="t-ko">걸리는 시간</span><span class="t-en">Duration</span></span><span class="v"><span class="t-ko">한 시간</span><span class="t-en">one hour</span></span></li>
-          <li><span class="q">0</span><span><span class="t-ko">걱정</span><span class="t-en">Worries</span></span><span class="v"><span class="t-ko">내려놓고</span><span class="t-en">left behind</span></span></li>
-        </ol>
-        <div class="total"><span><span class="t-ko">기분</span><span class="t-en">Mood</span></span><em>Ooh!</em></div>
+  <div class="split" id="story">
+    <section class="cell gut" aria-labelledby="h-story">
+      <span class="corner tl" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <span class="corner tr" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <div class="inner">
+        <h2 id="h-story"><span class="t-ko">고향의 맛을 못 찾아,<br>직접 굽기 시작했습니다</span><span class="t-en">He couldn't find the taste of home,<br>so he started making it</span></h2>
+        <p class="sub">HOW IT STARTED</p>
+        <p class="year" aria-hidden="true"><b>6</b><span class="t-ko">년</span><span class="t-en">YEARS</span></p>
+        <blockquote class="voice">
+          <p><span class="t-ko">“저는 스무 살에 유학으로 한국에 와 대학을 다녔고, 대학원까지 6년 — 가장 힘들었던 건 외로움이었습니다. 한국에는 재밌는 것도 많고 좋은 친구도 사귈 수 있었지만, 외로움은 어쩔 수 없었습니다.</span><span class="t-en">“I came to Korea at twenty to study. Through university and graduate school, six years in all, the hardest part was loneliness. Korea had plenty of fun things and I made good friends, but the loneliness never went away.</span></p>
+          <p><span class="t-ko">향수를 이겨내려고 이태원·대구·광주·안산까지 고향의 맛을 찾아다녔습니다. 하지만 못 찾아, 직접 굽기 시작했습니다.</span><span class="t-en">To beat the homesickness, I went looking for the taste of home in Itaewon, Daegu, Gwangju, even Ansan. I couldn't find it, so I started making it myself.</span></p>
+          <p><span class="t-ko">처음엔 친한 대학 친구들에게 나눠줬고 반응이 좋았습니다. 6년 동안 알바를 하며 만난 사람들에게도 나눠줬고, 맛있게 먹는 모습을 보며 언젠가 꼭 이 맛을 사람들에게 나눠주고 싶다고 생각했습니다. 그다음은 퇴근한 단골들 — 그 반응이 이 케밥의 시작이 됐습니다.”</span><span class="t-en">At first I shared it with close friends from university, and they loved it. I shared it with the people I met at part-time jobs over those six years too, and watching them enjoy it, I thought that one day I really wanted to share this taste with everyone. Then came the regulars stopping by after work. Their reaction was the start of this kebab.”</span></p>
+          <p class="who"><span class="t-ko">— 이 케밥을 한국에 처음 가져온 <b>로한</b>. 마곡에서는 현지에서 온 주방장이 그 방식대로 굽습니다.</span><span class="t-en">— <b>Rohan</b>, who first brought this kebab to Korea. In Magok, a chef from Central Asia grills it the same way.</span></p>
+        </blockquote>
       </div>
-      <div class="closing">
+    </section>
+    <figure class="pic"><img src="img/story_kitchen.jpg" alt="꼬치에 쌓아 굽는 케밥 고기 앞에 선 주방장 · The chef at the kebab spit" width="1600" height="1067" loading="lazy"></figure>
+  </div>
+
+  <div class="welcome gut">
+    <p class="eyebrow sm"><span class="spark"><svg><use href="#sp"/></svg></span><span class="t-ko">먼저 드신 분들은</span><span class="t-en">FROM OUR GUESTS</span><span class="spark"><svg><use href="#sp"/></svg></span></p>
+    <figure class="review">
+      <p>“…터키,중동에서 먹던 그 케밥맛이 나서 너무 맛있게 잘먹고 있습니다. 한국에 파는 대부분 케밥집들에게서 느끼지 못하는 특유의 그 맛이 있어요.”</p>
+      <p class="src"><span class="t-ko">배달의민족 리뷰 · 2026-05-13</span><span class="t-en">Baemin delivery app review · 2026-05-13</span></p>
+      <p class="tr t-en">“…It tastes just like the kebab I had in Turkey and the Middle East, so I'm really enjoying it. It has that special taste I don't get from most kebab shops in Korea.” (translated)</p>
+    </figure>
+  </div>
+
+  <div class="split flip">
+    <section class="cell gut" aria-labelledby="h-trip">
+      <span class="corner tl" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <span class="corner tr" aria-hidden="true"><span class="spark"><svg><use href="#sp"/></svg></span><span class="spark"><svg><use href="#sp"/></svg></span></span>
+      <div class="inner">
         <h2 id="h-trip"><span class="t-ko">오늘도 어제 같은 점심이라면</span><span class="t-en">If today's lunch is just like yesterday's</span></h2>
-        <p><span class="t-ko">어제는 햄버거, 그제는 샌드위치 — 오늘도 어제 같은 점심이라면, 이번엔 짧은 여행 어떠세요. 한 시간, 마음은 내려놓고 기분은 들뜬 채로 다녀오세요. 원조할매케밥에서 기다리겠습니다.</span><span class="t-en">Burger yesterday, sandwich the day before. If today's lunch is going to be just like yesterday's, how about a short trip this time? One hour: put your mind at ease and come back in a lighter mood. We'll be waiting at Wonjo Halmae Kebab.</span></p>
-        <div class="cta-row">
-          <a class="cta" href="survey/"><span class="t-ko">시식 설문 참여하기</span><span class="t-en">Take the tasting survey</span><span class="arrow" aria-hidden="true">→</span></a>
-          <p class="soon"><span class="t-ko">설문 끝에서 마곡 개점 알림을 신청하실 수 있습니다.</span><span class="t-en">At the end of the survey, you can sign up to hear when we open in Magok.</span></p>
+        <p class="sub">TODAY'S LUNCH</p>
+        <div class="guest">
+          <div class="head"><b>Guest Check</b><span><span class="t-ko">마곡 → 중앙아시아</span><span class="t-en">MAGOK → CENTRAL ASIA</span></span></div>
+          <ol>
+            <li><span class="q">1</span><span><span class="t-ko">짧은 여행</span><span class="t-en">A short trip</span></span><span class="v"><span class="t-ko">점심 한 끼</span><span class="t-en">one lunch</span></span></li>
+            <li><span class="q">1</span><span><span class="t-ko">걸리는 시간</span><span class="t-en">Duration</span></span><span class="v"><span class="t-ko">한 시간</span><span class="t-en">one hour</span></span></li>
+            <li><span class="q">0</span><span><span class="t-ko">걱정</span><span class="t-en">Worries</span></span><span class="v"><span class="t-ko">내려놓고</span><span class="t-en">left behind</span></span></li>
+          </ol>
+          <div class="total"><span><span class="t-ko">기분</span><span class="t-en">Mood</span></span><em>Ooh!</em></div>
         </div>
+        <p><span class="t-ko">어제는 햄버거, 그제는 샌드위치 — 오늘도 어제 같은 점심이라면, 이번엔 짧은 여행 어떠세요. 한 시간, 마음은 내려놓고 기분은 들뜬 채로 다녀오세요. 원조할매케밥에서 기다리겠습니다.</span><span class="t-en">Burger yesterday, sandwich the day before. If today's lunch is going to be just like yesterday's, how about a short trip this time? One hour: put your mind at ease and come back in a lighter mood. We'll be waiting at Wonjo Halmae Kebab.</span></p>
+        <a class="btn" href="survey/"><span class="t-ko">시식 설문 참여하기 →</span><span class="t-en">TAKE THE SURVEY →</span></a>
+        <p class="menunote"><span class="t-ko">설문 끝에서 마곡 개점 알림을 신청하실 수 있습니다.</span><span class="t-en">At the end of the survey, you can sign up to hear when we open in Magok.</span></p>
       </div>
     </section>
+    <figure class="pic"><img src="img/plate_sauce.jpg" alt="소스를 뿌린 케밥 고기와 감자튀김 · Kebab meat and fries with sauce" width="800" height="800" loading="lazy"></figure>
   </div>
 </main>
 
 <footer>
   <div class="steel"></div>
-  <div class="wrap">
+  <div class="gut">
     <b><span class="t-ko">원조할매케밥</span><span class="t-en">Wonjo Halmae Kebab</span></b>
     <span><span class="t-ko">서울 마곡 · 개점 준비 중</span><span class="t-en">Magok, Seoul · Opening soon</span></span>
   </div>
