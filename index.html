@@ -15,7 +15,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Shrikhand&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Lilita+One&family=Shrikhand&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
 <style>
 /* 소개 첫 화면 · 글 정본 = 서사 정본 v1.2 §9-2(2026-08-19 확정) — 문장은 거기서만 고친다
    ⭐4판 구성(사장님 10-29 「2번 메뉴 + 1번 이야기」, 본보기 캡처 = benchmark_captures/)
@@ -50,27 +50,37 @@ html.en .t-ko{display:none}
 /* 위 띠 — Patty & Bun 처럼 빨간 띠 */
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--red)}
 .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
-.bar .name{font-family:var(--display);font-size:19px;color:var(--paper);text-decoration:none}
+.bar .name{font-family:var(--display);font-size:clamp(15px,4.6vw,19px);white-space:nowrap;color:var(--paper);text-decoration:none}
 .lang{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1 var(--body);letter-spacing:.08em;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer}
 .lang b{color:var(--blue);font-weight:700}
+.nav{margin-left:auto;margin-right:10px;font:400 18px/1 "Lilita One",var(--display);letter-spacing:.06em;color:var(--paper);text-decoration:none}
+.nav:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+@media (max-width:420px){.bar .wrap{gap:8px}.nav{margin-right:2px;font-size:16px}.lang{padding:7px 9px;font-size:11px;gap:4px}.en .bar .name{font-size:clamp(12px,3.5vw,17px)}}
 .lang:focus-visible,.cta:focus-visible,.bar .name:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 
-/* 카운터 위 레트로 메뉴판(그림 A) — 스테인리스 테 · 크림 판 · 빨간 안쪽 선 · 파란 이름 · 빨간 가격 · 별 */
-.menuwall{padding-block:16px 0}
-.menuboards{display:grid;grid-template-columns:1fr;gap:10px}
-.mb{position:relative;overflow:hidden;display:grid;grid-template-columns:auto auto;justify-content:space-between;align-items:center;gap:6px 12px;border:5px solid transparent;border-radius:6px;padding:16px 22px 16px 24px;
-  background:radial-gradient(ellipse at 50% 38%,#FFFAEC 0%,#FBEFD2 62%,#F1DFB8 100%) padding-box,var(--steel) border-box;
-  box-shadow:0 3px 0 rgba(42,26,20,.18)}
-.mb::before{content:"";position:absolute;inset:5px;border:2px solid var(--red);border-radius:3px;pointer-events:none}
-.mb .nm{display:block;font-family:var(--display);font-weight:400;color:var(--blue);font-size:clamp(30px,9vw,40px);line-height:1.02;transform:rotate(-2.5deg);text-align:left;
-  text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,2px 2px 0 #fff,3px 3px 0 rgba(31,63,143,.22)}
-.mb .en{grid-column:1;grid-row:2;display:block;text-align:left;font:700 10.5px/1.2 var(--body);letter-spacing:.2em;color:var(--blue);opacity:.75}
-.mb .pr{grid-column:2;grid-row:1/3;white-space:nowrap;font-family:var(--display);font-weight:400;color:var(--red);font-size:clamp(42px,13vw,60px);line-height:1;transform:rotate(-2.5deg);
-  text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,3px 3px 0 rgba(168,39,32,.25)}
-.mb .pr small{font-size:.36em;margin-left:2px}
-.mb .sp{position:absolute;line-height:1;font-size:15px;color:var(--blue)}
-.mb .sp.r{color:var(--red)}
-.mb .s1{top:12px;left:44%}.mb .s2{top:12px;right:14px;font-size:13px}.mb .s3{bottom:12px;left:68%;font-size:11px}.mb .s4{bottom:12px;right:20px;font-size:15px}
+/* 카운터 위 레트로 메뉴판(그림 A 그대로 — 영어 둥근 글씨 · 바랜 종이 · 손그림 빨간 테 · 큰 가격 · 별) */
+.menuwall{max-width:1040px;margin:0 auto;padding:18px max(12px,env(safe-area-inset-left,0px)) 0}
+.menuboards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mb{position:relative;display:grid;align-content:center;gap:2px;min-height:118px;padding:14px 10px 12px;text-decoration:none;border:3px solid #6B584A;border-radius:3px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .35 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
+  radial-gradient(ellipse at 50% 45%,#FFF8E6 0%,#F7EAC8 70%,#EAD5A6 100%);
+  box-shadow:0 4px 0 rgba(42,26,20,.22),inset 0 0 18px rgba(150,110,60,.18);transition:transform .15s}
+.mb::before{content:"";position:absolute;inset:6px;border:1.5px solid var(--red);border-radius:2px;pointer-events:none;transform:rotate(-.25deg)}
+.mb:hover,.mb:focus-visible{transform:translateY(-2px)}
+.mb:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.mb .nm{font-family:"Lilita One",var(--display);font-weight:400;color:#1D4C9C;font-size:clamp(17px,5vw,34px);line-height:.95;letter-spacing:.01em;transform:rotate(-3deg);
+  text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff,2px 3px 0 rgba(29,76,156,.18)}
+.mb .pr{font-family:"Lilita One",var(--display);font-weight:400;color:#D02E27;font-size:clamp(34px,10.5vw,74px);line-height:1;transform:rotate(-3deg);
+  text-shadow:-1.5px -1.5px 0 #fff,1.5px -1.5px 0 #fff,-1.5px 1.5px 0 #fff,1.5px 1.5px 0 #fff,3px 4px 0 rgba(168,39,32,.2)}
+.mb .tick{position:absolute;right:12px;bottom:9px;color:var(--red);font:italic 700 11px/1 var(--body);letter-spacing:-1px}
+.mb .sp{position:absolute;line-height:1;font-size:13px;color:#1D4C9C}
+.mb .sp.r{color:#D02E27}
+.mb .s1{top:11px;right:14px}.mb .s2{top:42%;left:12px;font-size:10px}.mb .s3{bottom:12px;left:46%;font-size:11px}.mb .s4{top:13px;left:48%;font-size:9px}
+@media (min-width:760px){
+  .mb{grid-template-columns:auto auto;justify-content:space-between;align-items:center;padding:20px 22px;min-height:150px}
+}
+.menulink{max-width:none;display:flex;justify-content:center;margin:12px 0 0}
+.menulink a{font:700 14px/1 var(--body);letter-spacing:.14em;color:var(--blue);text-decoration:none;border:2px solid var(--blue);border-radius:999px;padding:11px 20px;background:var(--paper)}
 .menunote{max-width:none;margin:8px 0 0;text-align:center;font-size:12.5px;color:var(--muted)}
 
 /* 첫 화면 */
@@ -175,34 +185,20 @@ footer b{font-family:var(--display);font-weight:400;font-size:20px}
 <header class="bar">
   <div class="wrap">
     <a class="name" href="#top"><span class="t-ko">원조할매케밥</span><span class="t-en">Wonjo Halmae Kebab</span></a>
+    <a class="nav" href="menu/">MENU</a>
     <button type="button" class="lang" id="langBtn" aria-label="Change language · 언어 바꾸기">LANGUAGE <b id="langTo">EN</b></button>
   </div>
 </header>
 <div class="steel"></div>
 
-<!-- 메뉴·가격 출처 = 사장님 지정(10-29) 목업 그림 A 메뉴판 그대로: BEEF 8.9 · CHICKEN 7.9 · CHEESE 9.9 -->
-<section class="wrap menuwall" aria-label="메뉴 · Menu">
+<!-- 메뉴판 = build_site.py MENU 에서 채움(메뉴 목록·상세와 같은 판) -->
+<section class="menuwall" aria-label="Menu">
   <div class="menuboards">
-    <div class="mb">
-      <span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span>
-      <b class="nm"><span class="t-ko">소고기<br>케밥</span><span class="t-en">BEEF<br>KEBAB</span></b>
-      <span class="en">8,900원 · BEEF KEBAB</span>
-      <b class="pr">8.9</b>
-    </div>
-    <div class="mb">
-      <span class="sp r s1" aria-hidden="true">✦</span><span class="sp s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span>
-      <b class="nm"><span class="t-ko">치킨<br>케밥</span><span class="t-en">CHICKEN<br>KEBAB</span></b>
-      <span class="en">7,900원 · CHICKEN KEBAB</span>
-      <b class="pr">7.9</b>
-    </div>
-    <div class="mb">
-      <span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp r s3" aria-hidden="true">✦</span><span class="sp s4" aria-hidden="true">✦</span>
-      <b class="nm"><span class="t-ko">치즈<br>케밥</span><span class="t-en">CHEESE<br>KEBAB</span></b>
-      <span class="en">9,900원 · CHEESE KEBAB</span>
-      <b class="pr">9.9</b>
-    </div>
+    <a class="mb" href="menu/beef-kebab/" aria-label="Beef Kebab ₩8,900"><span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span><b class="nm">BEEF<br>KEBAB</b><b class="pr">8.9</b><span class="tick" aria-hidden="true">//</span></a>
+    <a class="mb" href="menu/chicken-kebab/" aria-label="Chicken Kebab ₩7,900"><span class="sp r s1" aria-hidden="true">✦</span><span class="sp s2" aria-hidden="true">✦</span><span class="sp s3" aria-hidden="true">✦</span><span class="sp r s4" aria-hidden="true">✦</span><b class="nm">CHICKEN<br>KEBAB</b><b class="pr">7.9</b><span class="tick" aria-hidden="true">//</span></a>
+    <a class="mb" href="menu/cheese-kebab/" aria-label="Cheese Kebab ₩9,900"><span class="sp s1" aria-hidden="true">✦</span><span class="sp r s2" aria-hidden="true">✦</span><span class="sp r s3" aria-hidden="true">✦</span><span class="sp s4" aria-hidden="true">✦</span><b class="nm">CHEESE<br>KEBAB</b><b class="pr">9.9</b><span class="tick" aria-hidden="true">//</span></a>
   </div>
-  <p class="menunote"><span class="t-ko">마곡 매장 메뉴 · 가격은 바뀔 수 있습니다.</span><span class="t-en">Magok shop menu · Prices may change (KRW).</span></p>
+  <p class="menulink"><a href="menu/">SEE THE MENU →</a></p>
 </section>
 
 <main id="top">
