@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light only">
 <meta name="robots" content="noindex">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>원조할매케밥 시식 설문</title>
@@ -18,13 +19,8 @@
   --line:#E2E0DB; --accent:#9C3D1E; --accent-ink:#FFFFFF; --accent-soft:#F4E7E1; --none:#6B6760;
   --display:"Black Han Sans","IBM Plex Sans KR","Malgun Gothic",sans-serif;
   --body:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+  color-scheme:light; /* 폰이 다크 모드여도 밝은 바탕 고정 — 어두운 배경 금지(사장님 10-29) */
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#171614; --card:#201F1C; --ink:#EDEBE6; --muted:#A39E95;
-  --line:#34322E; --accent:#E08A62; --accent-ink:#1A1310; --accent-soft:#3A2820; --none:#8E897F; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#171614; --card:#201F1C; --ink:#EDEBE6; --muted:#A39E95;
-  --line:#34322E; --accent:#E08A62; --accent-ink:#1A1310; --accent-soft:#3A2820; --none:#8E897F; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-text-size-adjust:100%}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
