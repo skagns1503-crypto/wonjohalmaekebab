@@ -1,4 +1,5 @@
 User-agent: *
 Disallow: /survey/
 Disallow: /type_check/
+Disallow: /answer_check/
 Sitemap: https://wonjohalmaekebab.co.kr/sitemap.xml
